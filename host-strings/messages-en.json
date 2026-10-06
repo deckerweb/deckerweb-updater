@@ -1,0 +1,13 @@
+[
+  "Private mode must be boolean.",
+  "Invalid authentication provider.",
+  "The plugin must be installed in a stable slug directory.",
+  "Invalid GitHub repository URL.",
+  "The private update could not be authorized. Check the repository credentials and refresh updates.",
+  "Could not create the update download file.",
+  "The private update download failed. Check credentials and try again.",
+  "Could not access the update filesystem.",
+  "GitHub release does not contain the plugin main file.",
+  "Could not prepare the GitHub release package.",
+  "See the release on GitHub."
+]

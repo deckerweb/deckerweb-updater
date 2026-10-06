@@ -1,0 +1,8 @@
+.env
+.env.*
+*.log
+*.sqlite
+*.sqlite-*
+work/
+/dist/
+.DS_Store
