@@ -67,3 +67,10 @@ for lang in ['en','de']:
 write('wiki/_Sidebar.md','## English\n\n'+''.join(f'- [{n}]({n})\n' for n in ['Home','Integration','Authentication','Data','Testing','FAQ','Changelog','Security','Assets'])+'\n## Deutsch\n\n'+''.join(f'- [{n}]({n}-de)\n' for n in ['Home','Integration','Authentication','Data','Testing','FAQ','Changelog','Security','Assets']))
 write('wiki/_Footer.md','[Repository](https://github.com/deckerweb/deckerweb-updater) · Copyright © 2026 David Decker — DECKERWEB · GPL-2.0-or-later')
 print('Generated EN/DE readmes, documentation, FAQ, changelogs and wiki from one content source.')
+
+# GitHub Pages landing page uses the same canonical project prose.
+page='---\nlayout: default\n---\n\n# '+c['project']+'\n\n'
+for lang in ['en','de']:
+ page+=f"## {'English' if lang=='en' else 'Deutsch'}\n\n![{c['project']}](assets-github/banner-{lang}.png)\n\n**{c['slogan'][lang]}**\n\n{c['readme']['about'][lang]}\n\n{c['pages']['links'][lang]}\n\n"
+page+='## '+c['pages']['support']['en']+' · '+c['pages']['support']['de']+'\n\n[Ko-fi](https://ko-fi.com/deckerweb) · [Buy Me a Coffee](https://buymeacoffee.com/daveshine) · [PayPal](https://paypal.me/deckerweb)\n'
+write('index.md',page)

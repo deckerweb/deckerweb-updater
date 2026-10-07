@@ -322,5 +322,15 @@
         }
       ]
     }
-  ]
+  ],
+  "pages": {
+    "links": {
+      "en": "[Repository](https://github.com/deckerweb/deckerweb-updater) · [Documentation](https://github.com/deckerweb/deckerweb-updater/wiki/Home) · [Integration](https://github.com/deckerweb/deckerweb-updater/wiki/Integration) · [Release 2.1.0](https://github.com/deckerweb/deckerweb-updater/releases/tag/v2.1.0)",
+      "de": "[Repository](https://github.com/deckerweb/deckerweb-updater) · [Dokumentation](https://github.com/deckerweb/deckerweb-updater/wiki/Home-de) · [Einbindung](https://github.com/deckerweb/deckerweb-updater/wiki/Integration-de) · [Release 2.1.0](https://github.com/deckerweb/deckerweb-updater/releases/tag/v2.1.0)"
+    },
+    "support": {
+      "en": "Support the project",
+      "de": "Das Projekt unterstützen"
+    }
+  }
 }

@@ -1,0 +1,17 @@
+theme: jekyll-theme-cayman
+title: deckerweb Updater
+description: Fresh releases. Familiar workflow. / Neue Versionen. Vertrauter Ablauf.
+exclude:
+  - runtime
+  - tools
+  - tests
+  - examples
+  - wiki
+  - docs
+  - README.md
+  - README-de.md
+  - CHANGELOG.md
+  - CHANGELOG-de.md
+  - SECURITY.md
+  - SECURITY-de.md
+  - assets-github/variants
