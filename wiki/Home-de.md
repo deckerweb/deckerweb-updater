@@ -1,6 +1,6 @@
 # deckerweb Updater
 
-![deckerweb Updater](assets/banner-de.png)
+![deckerweb Updater](https://raw.githubusercontent.com/wiki/deckerweb/deckerweb-updater/assets/banner-de.png)
 
 **Neue Versionen. Vertrauter Ablauf.**
 

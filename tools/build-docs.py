@@ -43,7 +43,7 @@ for lang in ['en','de']:
 wiki=ROOT/'wiki';wiki.mkdir(exist_ok=True)
 for lang in ['en','de']:
  s=suffix(lang)
- home=f"# {c['project']}\n\n![{c['project']}](assets/banner-{lang}.png)\n\n**{c['slogan'][lang]}**\n\n{c['readme']['about'][lang]}\n\n"
+ home=f"# {c['project']}\n\n![{c['project']}](https://raw.githubusercontent.com/wiki/deckerweb/deckerweb-updater/assets/banner-{lang}.png)\n\n**{c['slogan'][lang]}**\n\n{c['readme']['about'][lang]}\n\n"
  pages={'INTEGRATION':'Integration','AUTHENTICATION':'Authentication','DATA':'Data','TESTING':'Testing','VALIDATION':'Validation','CONVENTIONS':'Conventions','ASSETS':'Assets','GLOSSARY':'Glossary','SECURITY':'Security'}
  for stem,name in pages.items():
   body=c['documents'][stem][lang]
