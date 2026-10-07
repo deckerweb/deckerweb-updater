@@ -1,43 +1,144 @@
 # deckerweb Updater
 
-A small, GitHub-only release updater for WordPress plugins maintained by DECKERWEB. Version **2.1.0** extends the existing V2 engine with optional private repository authentication and host-owned translations.
+[Deutsch](README-de.md)
 
-This is an embedded component, not a standalone WordPress plugin. Copy a pinned, tested version into the host plugin. It does not enable automatic updates or replace installed host integrations.
+![deckerweb Updater](assets-github/banner-en.png)
 
-## Features
+## About
 
-- One engine for public and private GitHub repositories.
-- Latest stable release metadata, preferred slug/version ZIP assets and source-ZIP fallback.
-- WordPress update offers, plugin details, local icon/banner URL maps and archive normalization.
-- Optional repository-bound authentication provider; an environment provider is included.
-- Authenticated private API downloads with controlled HTTPS redirects and no credential forwarding to download hosts.
-- Per-host translation callback; all user-facing strings belong to the host's existing textdomain.
+The deckerweb Updater connects GitHub releases to the normal WordPress plugin update workflow. Plugin authors embed it in their plugins; users keep the familiar update screen. Public and private repositories share the same engine.
 
-Structured footer changelogs, locale-specific wiki links, artwork selection and full candidate identity/version/requirement checks belong to the integrating host. Keep those host features intact.
+This repository contains the reusable PHP component, tests, integration examples and documentation. If you find it inside a plugin, you do not need to install an additional updater plugin.
 
-## Integration
+**Version:** 2.1.0 · PHP ≥ 8.1 · WordPress requirements follow the host; tested on 6.7 and 7.1.2.
 
-See [English integration guide](docs/INTEGRATION.md), [German integration guide](docs/INTEGRATION-de.md), [host adapter template](examples/host-adapter.php) and [host translation template](examples/host-translations.php).
+[Documentation](docs/INTEGRATION.md) · [FAQ](docs/FAQ.md) · [Security](SECURITY.md)
 
-Existing five-argument public constructor calls remain compatible. A sixth options array supports `private`, `auth` and `translate`. Private mode without a valid provider fails closed. Credentials must come from protected installation configuration, never from plugin files, ZIPs or Git.
+## Contents
 
-## Development status
+- [At a Glance](#glance)
+- [Installation and first steps](#installation)
+- [Main features](#features)
+- [Found the updater in your plugin?](#users)
+- [For developers](#developers)
+- [FAQ](#faq)
+- [Changelog](#changelog)
+- [Author and scope](#author)
+- [Questions and support](#support)
 
-This is the official 2.1 release. Public regression, private asset/source downloads, token rotation/revocation, host translations, isolated host package checks, Multisite and PHP 8.1/MySQL 8.0 tests have been performed. See [validation and limits](docs/VALIDATION.md). Each real host integration still requires its own acceptance checks before production use.
+<a id="glance"></a>
+## At a Glance
 
-## Tests
+- GitHub releases in the native WordPress update workflow.
+- Public repositories without credentials; optional private repositories with a provider.
+- Release ZIP assets and source-archive fallback.
+- Host-provided icons, banners and plugin information.
+- All interface strings in the host plugin’s existing textdomain.
 
-Run from the repository root with PHP 8.1 or later:
+<a id="installation"></a>
+## Installation and first steps
 
-```sh
-php tests/regression.php runtime/deckerweb-github-release-updater-v2.php
-php tests/regression.php tests/fixtures/updater-v2-baseline.php
-php tests/class-loading.php tests/fixtures/updater-v2-baseline.php runtime/deckerweb-github-release-updater-v2.php public
-php tests/class-loading.php runtime/deckerweb-github-release-updater-v2.php tests/fixtures/updater-v2-baseline.php private
-```
+**For plugin users:** update the embedding plugin as usual under **Dashboard → Updates** or **Plugins**. Your plugin author decides whether and how this component is included.
 
-The self-contained tests use synthetic WordPress functions and credentials. They require no account access. Private live tests require a separate disposable installation and a narrowly scoped token; neither credentials nor internal test databases are included.
+**For developers:** copy a pinned runtime version into the host, register it after translations initialize and preserve the host’s full package validation. The repository ZIP is a component source package. See [integration](docs/INTEGRATION.md) and the [adapter template](examples/host-adapter.php).
 
-## License and origin
+<a id="features"></a>
+## Main features
 
-GPL-2.0-or-later. Copyright David Decker – DECKERWEB. The engine originated in the existing V2 component shipped in [Brand Admin Schemes 0.18.0](https://github.com/deckerweb/brand-admin-schemes/releases/tag/v0.18.0), commit `a9a1c0da350c3e8cfc0eec5db8ab1d923bd4ba17`. The unchanged original engine is included only as a regression fixture.
+### One workflow for GitHub updates
+
+Published stable releases become update offers for the matching plugin. Drafts, prereleases and older versions are not offered. The component does not turn on automatic updates.
+
+### Public and private repositories
+
+Public repositories use the existing unauthenticated flow. Private repositories obtain credentials from a repository-bound provider. Private API downloads resolve temporary URLs at download time and do not forward the token to the download host.
+
+### Keep the host’s identity
+
+Icons, banners, names and descriptions come from the host. Release notes appear as escaped text in the plugin details dialog. Structured footer changelogs and localized wiki links remain host features.
+
+### One textdomain per plugin
+
+The host owns translation catalogs. A per-instance callback translates updater messages when they are displayed; no extra updater textdomain is loaded.
+
+<a id="users"></a>
+## Found the updater in your plugin?
+
+You do not need a GitHub account or token for public plugin updates. Private updates need installation-managed credentials; follow your plugin maintainer’s setup instructions. No token is shipped inside the plugin.
+
+GitHub update checks and package downloads contact external servers, which can see the requesting IP address. This component adds no analytics. Core WordPress and the host may make other requests under their own policies.
+
+Use the host plugin’s documentation for its requirements, activation behavior and uninstall cleanup. See [data and requests](docs/DATA.md).
+
+<a id="developers"></a>
+## For developers
+
+The updater is GPL-2.0-or-later. Explore or reuse it with its origin and license intact. Start with [integration](docs/INTEGRATION.md), [authentication](docs/AUTHENTICATION.md), [tests](docs/TESTING.md) and [release conventions](docs/CONVENTIONS.md).
+
+Before replacing an installed plugin, the host must verify the actual candidate identity, Update URI, offered version and WordPress/PHP requirements. Keep this check active in both single and bulk updates. Check capabilities before using new options beside older loaded V2 copies.
+
+<a id="faq"></a>
+## FAQ
+
+### Do I install a separate updater plugin?
+
+No. The host embeds a pinned version. Use the host plugin’s normal installation and update steps.
+
+### Do public updates need a GitHub token?
+
+No. Public repositories remain unauthenticated. Only configured private repositories need credentials.
+
+### Can I update from a private repository?
+
+Yes. The host must enable private mode and provision a repository-bound provider. A fine-grained PAT with Contents read and Metadata read supports the tested release and archive endpoints.
+
+### Does the updater enable automatic updates?
+
+No. It supports the normal WordPress update engine. Automatic-update preferences remain with WordPress and the host.
+
+### Can several plugins embed V2?
+
+Yes, with guarded loading. The first loaded class wins; check the private/translation capabilities and coordinate deployed versions.
+
+### Is there an extra textdomain?
+
+No. Updater strings are merged into the host’s catalogs and translated through a host callback.
+
+### What happens when a token is revoked?
+
+Private downloads are rejected even if metadata is still cached. A rejected download does not replace the installed plugin; activation behavior remains the responsibility of the calling host workflow.
+
+[All questions by topic](docs/FAQ.md).
+
+<a id="changelog"></a>
+## Changelog
+
+### 2.1.0 · 2026-10-06
+
+- **New:** Private GitHub updates through a repository-bound authentication provider.
+
+- **New:** Updater messages use the host plugin’s existing textdomain, including German Du/Sie catalogs.
+
+- **Improved:** Authenticated release assets and source archives share the native WordPress update workflow.
+
+- **Improved:** Token rotation supports explicit metadata-cache invalidation.
+
+- **Fixed:** Private downloads and archive normalization handle Core’s per-package bulk context.
+
+- **Misc:** Existing public calls, local artwork and release information remain supported.
+
+<a id="author"></a>
+## Author and scope
+
+Developed and maintained by David Decker — DECKERWEB. A shared embedded component for GitHub-distributed WordPress plugins.
+
+<a id="support"></a>
+## Questions and support
+
+Use [issues](https://github.com/deckerweb/deckerweb-updater/issues) for component questions and reproducible bugs without sensitive details. For plugin-specific integration issues, contact the host maintainer. Read [security reporting](SECURITY.md) before sharing a suspected vulnerability.
+
+[Ko-fi](https://ko-fi.com/deckerweb) · [Buy Me a Coffee](https://buymeacoffee.com/daveshine) · [PayPal](https://paypal.me/deckerweb)
+
+## Copyright and license
+
+Copyright © 2026 David Decker — DECKERWEB. GPL-2.0-or-later. [LICENSE](LICENSE) · [Assets](docs/ASSETS.md).

@@ -1,7 +1,5 @@
 # Changelog
 
-[Deutsch](CHANGELOG-de.md)
-
 ### 2.1.0 · 2026-10-06
 
 - **New:** Private GitHub updates through a repository-bound authentication provider.

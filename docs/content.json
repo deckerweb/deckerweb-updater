@@ -1,0 +1,326 @@
+{
+  "schema": 1,
+  "project": "deckerweb Updater",
+  "version": "2.1.0",
+  "released": "2026-10-06",
+  "slogan": {
+    "en": "Fresh releases. Familiar workflow.",
+    "de": "Neue Versionen. Vertrauter Ablauf."
+  },
+  "readme": {
+    "about": {
+      "en": "The deckerweb Updater connects GitHub releases to the normal WordPress plugin update workflow. Plugin authors embed it in their plugins; users keep the familiar update screen. Public and private repositories share the same engine.\n\nThis repository contains the reusable PHP component, tests, integration examples and documentation. If you find it inside a plugin, you do not need to install an additional updater plugin.",
+      "de": "Der deckerweb Updater verbindet GitHub-Releases mit dem gewohnten WordPress-Updateablauf. Plugin-Autoren binden ihn in ihre Plugins ein; du nutzt weiterhin die vertraute Updateansicht. Öffentliche und private Repositories verwenden dieselbe Engine.\n\nDieses Repository enthält die wiederverwendbare PHP-Komponente, Tests, Einbindungsbeispiele und Dokumentation. Wenn du den Updater in einem Plugin findest, musst du kein zusätzliches Updater-Plugin installieren."
+    },
+    "glance": {
+      "en": "- GitHub releases in the native WordPress update workflow.\n- Public repositories without credentials; optional private repositories with a provider.\n- Release ZIP assets and source-archive fallback.\n- Host-provided icons, banners and plugin information.\n- All interface strings in the host plugin’s existing textdomain.",
+      "de": "- GitHub-Releases im normalen WordPress-Updateablauf.\n- Öffentliche Repositories ohne Zugangsdaten; private optional mit einem Provider.\n- Release-ZIP-Dateien und Source-Archiv als Fallback.\n- Vom Host bereitgestellte Icons, Banner und Plugininformationen.\n- Alle Oberflächentexte in der bestehenden Textdomain des Host-Plugins."
+    },
+    "installation": {
+      "en": "**For plugin users:** update the embedding plugin as usual under **Dashboard → Updates** or **Plugins**. Your plugin author decides whether and how this component is included.\n\n**For developers:** copy a pinned runtime version into the host, register it after translations initialize and preserve the host’s full package validation. The repository ZIP is a component source package. See [integration](docs/INTEGRATION.md) and the [adapter template](examples/host-adapter.php).",
+      "de": "**Für Plugin-Nutzer:** Aktualisiere das einbettende Plugin wie gewohnt unter **Dashboard → Aktualisierungen** oder **Plugins**. Der Plugin-Autor entscheidet über die Einbindung.\n\n**Für Entwickler:** Einen festen Runtime-Versionsstand in den Host übernehmen, nach dem Übersetzungsstart registrieren und dessen vollständige Paketprüfung erhalten. Das Repository-ZIP ist ein Quellpaket der Komponente. Siehe [Einbindung](docs/INTEGRATION-de.md) und [Adaptervorlage](examples/host-adapter.php)."
+    },
+    "features": {
+      "en": "### One workflow for GitHub updates\n\nPublished stable releases become update offers for the matching plugin. Drafts, prereleases and older versions are not offered. The component does not turn on automatic updates.\n\n### Public and private repositories\n\nPublic repositories use the existing unauthenticated flow. Private repositories obtain credentials from a repository-bound provider. Private API downloads resolve temporary URLs at download time and do not forward the token to the download host.\n\n### Keep the host’s identity\n\nIcons, banners, names and descriptions come from the host. Release notes appear as escaped text in the plugin details dialog. Structured footer changelogs and localized wiki links remain host features.\n\n### One textdomain per plugin\n\nThe host owns translation catalogs. A per-instance callback translates updater messages when they are displayed; no extra updater textdomain is loaded.",
+      "de": "### Ein Ablauf für GitHub-Updates\n\nVeröffentlichte stabile Releases werden als Updates für das zugehörige Plugin angeboten. Entwürfe, Vorabversionen und ältere Versionen werden nicht angeboten. Der Updater schaltet automatische Updates nicht selbst ein.\n\n### Öffentliche und private Repositories\n\nÖffentliche Repositories behalten den Zugriff ohne Authentifizierung. Private beziehen Zugangsdaten über einen an das Repository gebundenen Provider. Temporäre URLs werden erst beim Download aufgelöst; der Token wird nicht an den Downloadhost weitergegeben.\n\n### Die Identität des Hosts erhalten\n\nIcons, Banner, Namen und Beschreibungen kommen vom Host. Release-Notizen erscheinen als maskierter Text im Plugindialog. Strukturierter Footer-Changelog und sprachabhängige Wiki-Links bleiben Hostfunktionen.\n\n### Eine Textdomain pro Plugin\n\nDer Host pflegt die Übersetzungskataloge. Ein Callback pro Instanz übersetzt Updater-Meldungen bei der Ausgabe; eine zusätzliche Updater-Textdomain wird nicht geladen."
+    },
+    "users": {
+      "en": "You do not need a GitHub account or token for public plugin updates. Private updates need installation-managed credentials; follow your plugin maintainer’s setup instructions. No token is shipped inside the plugin.\n\nGitHub update checks and package downloads contact external servers, which can see the requesting IP address. This component adds no analytics. Core WordPress and the host may make other requests under their own policies.\n\nUse the host plugin’s documentation for its requirements, activation behavior and uninstall cleanup. See [data and requests](docs/DATA.md).",
+      "de": "Für öffentliche Pluginupdates brauchst du keinen GitHub-Account oder Token. Private Updates benötigen installationsseitig verwaltete Zugangsdaten; dafür gelten die Einrichtungshinweise des Plugin-Betreuers. Ein Token wird nicht im Plugin mitgeliefert.\n\nGitHub-Updateprüfungen und Paketdownloads verbinden sich mit externen Servern, die die anfragende IP-Adresse sehen können. Die Komponente enthält keine Analysefunktion. WordPress und der Host können nach ihren eigenen Regeln weitere Anfragen stellen.\n\nVoraussetzungen, Aktivierung und Bereinigung beim Deinstallieren erklärt die Dokumentation des Host-Plugins. Siehe [Daten und Verbindungen](docs/DATA-de.md)."
+    },
+    "developers": {
+      "en": "The updater is GPL-2.0-or-later. Explore or reuse it with its origin and license intact. Start with [integration](docs/INTEGRATION.md), [authentication](docs/AUTHENTICATION.md), [tests](docs/TESTING.md) and [release conventions](docs/CONVENTIONS.md).\n\nBefore replacing an installed plugin, the host must verify the actual candidate identity, Update URI, offered version and WordPress/PHP requirements. Keep this check active in both single and bulk updates. Check capabilities before using new options beside older loaded V2 copies.",
+      "de": "Der Updater ist GPL-2.0-or-later. Du kannst ihn mit erhaltener Herkunfts- und Lizenzangabe untersuchen und wiederverwenden. Einstieg: [Einbindung](docs/INTEGRATION-de.md), [Authentifizierung](docs/AUTHENTICATION-de.md), [Tests](docs/TESTING-de.md) und [Release-Konventionen](docs/CONVENTIONS-de.md).\n\nVor Austausch eines installierten Plugins muss der Host die tatsächliche Paketidentität, Update-URI, angebotene Version und WP-/PHP-Anforderungen prüfen. Diese Prüfung muss bei Einzel- und Sammelupdates greifen. Bei parallel geladenen älteren V2-Kopien die benötigten Fähigkeiten prüfen."
+    },
+    "author": {
+      "en": "Developed and maintained by David Decker — DECKERWEB. A shared embedded component for GitHub-distributed WordPress plugins.",
+      "de": "Entwickelt und betreut von David Decker — DECKERWEB. Gemeinsame eingebettete Komponente für über GitHub vertriebene WordPress-Plugins."
+    },
+    "support": {
+      "en": "Use [issues](https://github.com/deckerweb/deckerweb-updater/issues) for component questions and reproducible bugs without sensitive details. For plugin-specific integration issues, contact the host maintainer. Read [security reporting](SECURITY.md) before sharing a suspected vulnerability.\n\n[Ko-fi](https://ko-fi.com/deckerweb) · [Buy Me a Coffee](https://buymeacoffee.com/daveshine) · [PayPal](https://paypal.me/deckerweb)",
+      "de": "Für Fragen zur Komponente und nachvollziehbare Fehler ohne sensible Angaben stehen die [Issues](https://github.com/deckerweb/deckerweb-updater/issues) zur Verfügung. Einbindungsspezifische Pluginfragen gehören zum jeweiligen Host-Betreuer. Lies vor Meldung einer möglichen Sicherheitslücke die [Sicherheitshinweise](SECURITY-de.md).\n\n[Ko-fi](https://ko-fi.com/deckerweb) · [Buy Me a Coffee](https://buymeacoffee.com/daveshine) · [PayPal](https://paypal.me/deckerweb)"
+    }
+  },
+  "documents": {
+    "INTEGRATION": {
+      "en": "# Host integration\n\n## Pin and embed the component\n\nCopy `runtime/deckerweb-github-release-updater-v2.php` into the host's includes directory. Keep the plugin installed under its stable slug. Set the main plugin's `Update URI` header to exactly `https://github.com/OWNER/REPOSITORY`, without a trailing slash. Register after host translations initialize on `init`.\n\nThe namespace stays `Deckerweb\\GitHubReleaseUpdater\\V2`. Several embedded copies can coexist only through guarded loading: `class_exists` selects the first loaded class. Check `SUPPORTS_PRIVATE_REPOSITORIES` and `SUPPORTS_HOST_TRANSLATIONS` before relying on the new options. An old copy must cause a clear, host-localized configuration notice and stop the new integration; do not redeclare or silently ignore capabilities. Coordinate pinned versions across deployed hosts.\n\nThe constructor accepts the absolute main plugin path, repository URL, name, description, optional artwork maps and optional options. See `examples/host-adapter.php`; replace its placeholders and incorporate it into the actual host lifecycle.\n\n## Host-owned translations and artwork\n\nCopy `examples/host-translations.php` into the adapter and replace its literal `example-host` textdomain with the host's own domain. Extract its literal `__()` calls into the host POT; merge the Du/Sie entries in `host-strings` into the host PO files and compile the host MO catalogs. The engine loads no separate domain or catalogs.\n\nPass the returned callable as `translate`. Calls happen at output time, using the current host locale. No translated UI text is stored in release caches. Names/descriptions are host inputs; release notes remain authored release content. Translator failures fall back to fixed English messages without exception details. Technical configuration exceptions must not be displayed raw in admin UI.\n\nProvide bundled icon/banner URLs through `artwork`. Supported keys: icons `svg`, `1x`, `2x`, `default`; banners `low`, `high`. Language-specific selection remains in the host. Preserve the host footer changelog and documentation/wiki links.\n\n## Private credentials\n\nUse a GitHub fine-grained PAT limited to the necessary repository, with Contents: read and GitHub's implicit Metadata: read. No write permission is needed for the tested metadata/asset/source endpoints. Keep the credential in protected server-side secret configuration exposed to the PHP worker; shell configuration alone does not configure PHP-FPM.\n\nThe environment provider is bound to one exact repository and reads the named variable at request time. Provision a separate token/variable when permissions need separation. A later GitHub App provider can implement `AuthProvider::token(string $repository): ?string`; the transport remains GitHub-specific. A custom update service needs an explicit transport integration.\n\nNo credentials belong in package URLs, transients, plugin code, ZIPs or Git. This component does not log secrets, but external WordPress HTTP-debug hooks may inspect requests. Configure monitoring to redact Authorization and temporary signed URLs. Privileged local PHP code is not isolated from the secret.\n\nAfter rotation, call `clear_cache()` on the registered updater, clear the WordPress plugin update cache and check again. Validate the replacement before revoking the old token. A cached offer cannot authorize the actual download with a revoked credential. Remove retired secrets from installation configuration after testing.\n\n## Mandatory host package validation\n\nThe engine normalizes directories and checks for the expected main file. The host must additionally validate candidate plugin identity, exact Update URI, version equality with the offered update, newer version and actual WordPress/PHP requirements before replacing the installed plugin. Do not infer future requirements from installed headers alone. Apply filesystem/read limits suitable for the host.\n\nScope `upgrader_source_selection` to the exact plugin basename. Accept a complete plugin/update context or Core's Bulk variant: a real `Plugin_Upgrader` with `bulk === true`, matching plugin basename and no explicitly conflicting type/action. Bulk per-package contexts omit type/action; requiring them unconditionally skips host validation. The engine already handles this distinction; the host must do so as well. See `examples/host-update-context.php`.\n\nPreserve existing error codes, checks, locale behavior and activation/uninstall lifecycle. Manual single-plugin updates can deactivate an active plugin; the invoking workflow must handle appropriate reactivation. The updater does not manage activation. Test installed-version preservation and activation behavior on failed packages and native single/bulk/automatic update flows.\n\n## Release adoption\n\nUse a pinned version or verified release asset. The repository ZIP is a source distribution, not an installable WordPress plugin. Updater adoption is a deliberate host release change; publishing this repository does not update existing embedded copies automatically. Public hosts require no token.\n",
+      "de": "# Integration im Host Plugin\n\nV2.1.0 wird als eingebettete Komponente mit festgelegtem Versionsstand übernommen. Das ZIP ist kein aktivierbares WordPress-Plugin. Hauptdatei, stabilen Plugin-Slug und exakte GitHub-Update-URI im jeweiligen Host prüfen. Nach dem Start der Hostübersetzungen auf init registrieren; Vorlage: examples/host-adapter.php.\n\n## Eine Textdomain pro Host\n\nexamples/host-translations.php übernehmen, example-host durch die feste Host-Textdomain ersetzen und die literalen __()-Aufrufe in die Host-POT extrahieren. Du-/Sie-Einträge aus host-strings in die Host-PO übernehmen und deren MO-Dateien neu erstellen. Der Updater lädt keine zusätzliche Domain. Übersetzung erfolgt über den Callback pro Instanz erst bei der Ausgabe. Icons, sprachabhängige Banner, strukturierter Footer-Changelog und Wiki-Verlinkung bleiben Hostfunktionen.\n\n## Private Repositories\n\nAls Optionen private=true und einen AuthProvider übergeben. Der EnvironmentAuthProvider erhält die exakte Repository-URL und den Namen der sicher serverseitig provisionierten Umgebungsvariable. Nur benötigte Repositories und Contents: read auswählen; Metadata: read belassen. Token nicht in Plugin-Dateien, ZIPs, Git, Metadaten oder URLs speichern. PHP-FPM muss das Secret tatsächlich erhalten. Externes HTTP-Debugging muss Authorization-Header und signierte URLs redigieren.\n\nRotation: Ersatz prüfen, clear_cache() aufrufen, WordPress-Updatecache leeren und erneut prüfen; danach alten Token widerrufen und aus der Secretkonfiguration entfernen. Die private Downloadberechtigung wird trotz gültigem Metadatencache beim tatsächlichen Download geprüft.\n\n## Klassenladung und Paketprüfung\n\nDie zuerst geladene V2-Kopie bestimmt die gemeinsame Klasse. Vor neuen Optionen SUPPORTS_PRIVATE_REPOSITORIES und SUPPORTS_HOST_TRANSLATIONS prüfen. Alte Klassen nicht neu deklarieren; private Integration bei fehlender Fähigkeit mit verständlicher Hostmeldung abbrechen. Gemeinsame Host-Versionen abstimmen.\n\nDie Engine prüft Hauptdatei und Archivverzeichnis. Die vollständige Identitäts-, Update-URI-, Angebotsversions- und WP-/PHP-Prüfung gehört zum Hostadapter und muss vor Austausch erfolgen. Einzel- und Bulkpfad berücksichtigen: Core lässt bei Bulk je Paket type/action weg. Nur matching Pluginbasename und tatsächlicher Plugin_Upgrader mit bulk=true ohne widersprechende Felder legitimieren diesen Sonderfall. Vorlage: examples/host-update-context.php.\n\nAktivierung, Reaktivierung, Uninstall und Fehlerlifecycle je Host prüfen. Der Updater aktiviert keine Plugins und schaltet keine automatischen Updates ein. Beispiele sind Integrationsvorlagen und ersetzen keine vorhandenen Host-Sicherungen.\n\nDen freigegebenen Stand zunächst auf Testinstallationen des jeweiligen Hosts integrieren. Für jedes Hostrelease Public/Private, Einzel/Bulk/Auto, Locale-Wechsel, fehlerhafte Pakete sowie parallele ältere/neue Updaterkopien prüfen. Die vollständige technische Anleitung steht in INTEGRATION.md; die Abnahmegrenzen in VALIDATION.md.\n"
+    },
+    "VALIDATION": {
+      "en": "# Validation and release limits\n\nVersion 2.1.0 was validated in isolated disposable environments. No existing host production installation was changed. The published self-contained suite has 69 checks; the original V2 fixture passes its 22 public regression checks. Tests pass on PHP 8.4.5 and 8.1.29; old-first and new-first class loading were checked in separate processes.\n\nAdditional live acceptance performed during development:\n\n- Private release assets and source archives through WordPress single, bulk and direct automatic-updater calls.\n- Fine-grained PAT restricted to the private test repository, Contents read and Metadata read.\n- Distinct replacement token accepted; genuinely revoked old token receives 401 despite an offer primed in valid metadata cache; installed code remains unchanged. Replacement token still succeeds.\n- Credentials sent only to GitHub API; no Authorization on asset/codeload redirects.\n- Eight real host MO-catalog checks across two independent domains, en_US/de_DE/de_DE_formal and locale changes.\n- 66 actual Core package-path checks across Single-Site/SQLite, Multisite/SQLite and Single-Site/MySQL 8.0.35. Valid packages install; ten malformed/mismatched cases retain old installed code in both single and bulk paths. Some compatibility failures are rejected by Core before the host validator.\n- WordPress 7.1.2/PHP 8.4.5 private Multisite asset updates, including network activation; bulk also on PHP 8.1.29. Manual single-update reactivation was explicitly handled by the test caller.\n- Private MySQL 8.0.35 updates on PHP 8.4.5 and 8.1.29; source bulk/automatic paths additionally checked on WordPress 6.7.\n- Public/private artwork and authentication stay separate; Multisite subsite shares network metadata cache.\n\nThe full host candidate checks remain host responsibilities. The private fixture and the host package-validation fixtures were separate; this is not an end-to-end acceptance of any production host plugin. Direct automatic-updater calls do not establish real cron scheduling or active-plugin fatal-error rollback. Concrete host integrations, combined MySQL-Multisite and complete lifecycle coverage still require their own acceptance. MySQL 8.4 was not accepted because the locally bundled runtime failed initialization; 8.0 tests passed.\n\nPrivate repository fixtures, credentials, operational wrappers, databases and internal handoffs are not distributed. Published mock tests can run offline. Version 2.1.0 is the official release.\n",
+      "de": "# Validierung und Abnahmegrenzen\n\n[English](VALIDATION.md)\n\nVersion 2.1.0 wurde in isolierten Testumgebungen geprüft. 69 eigenständige Regression-/Lokalisierungsprüfungen bestehen unter PHP 8.4.5 und 8.1.29; der ursprüngliche V2-Stand besteht seine 22 Public-Prüfungen. Alte und neue Klassenladung wurden getrennt geprüft.\n\nPrivate Release-Assets und Source-Archive wurden über Einzel-, Sammel- und direkte automatische WordPress-Updates geprüft. Ein eingeschränkter Fine-grained PAT genügt für die geprüften Endpunkte. Rotation funktioniert; der tatsächlich widerrufene alte Token erhält trotz gültigem Cache HTTP 401. Der Ersatz aktualisiert weiterhin erfolgreich. Downloadhosts erhalten keinen Authorization-Header.\n\nAcht echte Hostkatalogprüfungen decken zwei getrennte Textdomains und en_US/de_DE/de_DE_formal einschließlich Sprachwechsel ab. 66 echte Core-Paketprüfungen decken Single-Site/SQLite, Multisite/SQLite und Single-Site/MySQL 8.0.35 ab, jeweils im Einzel-/Bulkpfad. Gültige Pakete werden installiert; zehn falsche oder ungeeignete Varianten behalten den alten Codestand. Manche Anforderungen weist Core bereits vor der Hostprüfung ab.\n\nPrivate Multisite-Assetupdates bestehen unter WordPress 7.1.2/PHP 8.4.5, Bulk zusätzlich unter PHP 8.1.29. Die Einzelupdate-Reaktivierung wurde vom Testaufrufer durchgeführt. Private MySQL-8.0.35-Updates bestehen unter PHP 8.4.5/8.1.29; Source-Bulk-/Auto-Pfade wurden zusätzlich auf WordPress 6.7 geprüft. Public-/Private-Artwork und Auth-Verhalten bleiben getrennt; Unterseiten teilen den Netzwerkcache.\n\nVollständige Paketprüfungen bleiben Hostverantwortung. Die privaten Downloadfixtures und Hostpaketfixtures waren getrennt; dies ist keine vollständige Abnahme eines produktiven Host-Plugins. Direkte Auto-Updater-Aufrufe belegen keinen echten Cronlauf oder aktiven Fatal-Error-Rollback. Konkrete Hostintegrationen, kombinierte MySQL-Multisite und vollständiger Lifecycle benötigen eigene Tests. MySQL 8.4 wurde wegen eines Initialisierungsfehlers der lokalen Laufzeit nicht abgenommen; 8.0 besteht.\n\nZugangsdaten, private Betriebswrapper und Testdatenbanken werden nicht veröffentlicht. Die mitgelieferten Simulationstests laufen ohne Konto oder Netzwerk.\n"
+    },
+    "DATA": {
+      "en": "# Data and external requests\n\n[Deutsch](DATA-de.md)\n\n## Metadata and cache\n\nLatest stable GitHub releases provide version, stable package endpoint, authored notes and publication date. Repository-specific site transients retain successful metadata for 30 minutes and failures for 10 minutes. Private mode uses a separate key suffix. On Multisite the site-transient scope is the current network; this is not isolation of credentials per subsite. Translated UI text, tokens and temporary signed download URLs are not cached.\n\n## Connections and secrets\n\nUpdate checks contact api.github.com. Package downloads may redirect to approved GitHub download hosts; these endpoints see the requester’s IP address. Private API requests carry the provider credential. The engine does not forward it to redirect hosts, add analytics or require credentials for public repositories. Core and host requests are separate.\n\nProtected installation configuration owns the secret. Other privileged PHP code and HTTP-debug hooks can inspect outgoing requests; monitoring must redact Authorization and signed URLs.\n\n## Activation and uninstall\n\nThe host owns activation, deactivation, reactivation and uninstall. This embedded component adds no settings screen or dedicated database tables. Use clear_cache() for its repository metadata; secret removal happens in installation configuration. Do not delete shared cache entries while another host intentionally uses them without coordinating ownership. Uninstalling a host does not revoke a GitHub token; revocation is a separate operation.\n",
+      "de": "# Daten und externe Verbindungen\n\n[English](DATA.md)\n\n## Metadaten und Cache\n\nStabile GitHub-Releases liefern Version, dauerhaften Paketendpunkt, Release-Notizen und Veröffentlichungsdatum. Repositorybezogene Site-Transients speichern erfolgreiche Metadaten 30 Minuten, Fehlschläge 10 Minuten. Private verwendet einen eigenen Schlüsselsuffix. In Multisite gilt der aktuelle Netzwerk-Scope; das isoliert Zugangsdaten nicht je Unterseite. Übersetzte Oberflächentexte, Tokens und temporäre signierte Download-URLs werden nicht gespeichert.\n\n## Verbindungen und Secrets\n\nUpdateprüfungen kontaktieren api.github.com. Paketdownloads können zu zugelassenen GitHub-Downloadhosts führen; diese sehen die anfragende IP-Adresse. Private API-Anfragen enthalten das Provider-Credential, das nicht an Redirecthosts weitergegeben wird. Die Engine enthält keine Analysefunktion und verlangt für Public keine Credentials. Core-/Hostanfragen sind getrennt zu betrachten.\n\nGeschützte Installationskonfiguration verwaltet das Secret. Privilegierter PHP-Code und HTTP-Debug-Hooks können Anfragen sehen; Monitoring muss Authorization und signierte URLs redigieren.\n\n## Aktivierung und Deinstallation\n\nAktivierung, Deaktivierung, Reaktivierung und Uninstall verantwortet der Host. Die Komponente fügt weder Einstellungsseite noch eigene Datenbanktabellen hinzu. clear_cache() bereinigt Repository-Metadaten; Secrets werden in der Installationskonfiguration entfernt. Gemeinsam genutzte Caches nicht ohne abgestimmte Eigentümerschaft löschen. Deinstallation widerruft keinen GitHub-Token; das ist ein eigener Vorgang.\n"
+    },
+    "AUTHENTICATION": {
+      "en": "# Authentication and token lifecycle\n\n[Deutsch](AUTHENTICATION-de.md)\n\n## Public and private\n\nPublic mode makes unauthenticated GitHub requests. Private mode requires a repository-bound AuthProvider; EnvironmentAuthProvider reads the named installation variable at request time. A syntactically missing/invalid credential fails closed. Provider exceptions are not exposed.\n\nCreate a fine-grained GitHub PAT with only the necessary repositories, Contents: read and implicit Metadata: read. Choose an expiry, obtain any required organization approval and provision the secret securely for the PHP worker. Do not distribute the credential or put it in command arguments. The host supplies private=true, auth and its translate callback.\n\n## Rotation and revocation\n\nCreate an equally restricted replacement, provision it, clear the updater and WordPress update caches, and verify an actual download. Then revoke the old token in GitHub and remove its retired installation secret. A revoked credential cannot use a still-valid metadata cache to download a private package. Already downloaded files are not retroactively invalidated.\n\n## Downloads and providers\n\nPrivate release assets use a repository-bound assets/ID API endpoint; archive fallback uses the release ref. Accept differs between asset and archive requests. API requests do not automatically follow redirects. Approved HTTPS downloadhosts receive no Authorization header. Signed URLs are resolved on demand and not persisted in update metadata.\n\nA GitHub App provider can implement the same token contract. A future external update service requires an explicit transport integration; it is not present in version 2.1.\n",
+      "de": "# Authentifizierung und Token-Lifecycle\n\n[English](AUTHENTICATION.md)\n\n## Public und Private\n\nPublic-Anfragen bleiben ohne Authentifizierung. Private benötigt einen repositorygebundenen AuthProvider; der EnvironmentAuthProvider liest die benannte Installationsvariable bei der Anfrage. Fehlende oder syntaktisch ungültige Credentials führen zu einer kontrollierten Ablehnung. Provider-Exceptions werden nicht ausgegeben.\n\nEinen Fine-grained PAT nur für benötigte Repositories mit Contents: read und automatisch erforderlichem Metadata: read erzeugen. Ablaufdatum wählen, gegebenenfalls Organisationsfreigabe abwarten und das Secret geschützt für den PHP-Prozess bereitstellen. Nicht ausliefern und nicht als Kommandozeilenargument verwenden. Der Host übergibt private=true, auth und seinen Übersetzungs-Callback.\n\n## Rotation und Widerruf\n\nGleich eingeschränkten Ersatz erzeugen, provisionieren, Updater- und WordPress-Updatecache leeren und einen tatsächlichen Download prüfen. Danach alten Token in GitHub widerrufen und sein Secret aus der Installationskonfiguration entfernen. Ein widerrufenes Credential kann auch mit gültigem Metadatencache kein privates Paket laden. Bereits geladene Dateien werden nicht rückwirkend ungültig.\n\n## Downloads und Provider\n\nPrivate Assets verwenden den repositorygebundenen API-Endpunkt assets/ID; der Archivfallback verwendet den Release-Ref. Die Accept-Header unterscheiden sich. API-Anfragen folgen Redirects nicht automatisch. Zugelassene HTTPS-Downloadhosts erhalten keinen Authorization-Header. Signierte URLs werden bei Bedarf aufgelöst und nicht in Updatemetadaten gespeichert.\n\nEin GitHub-App-Provider kann denselben Tokenvertrag verwenden. Ein späterer externer Updateservice benötigt eine ausdrückliche Transportintegration; Version 2.1 enthält ihn nicht.\n"
+    },
+    "TESTING": {
+      "en": "# Testing\n\n[Deutsch](TESTING-de.md)\n\n## Self-contained suite\n\nRun from the repository root with PHP 8.1 or later:\n\n```sh\nphp tests/regression.php runtime/deckerweb-github-release-updater-v2.php\nphp tests/regression.php tests/fixtures/updater-v2-baseline.php\nphp tests/class-loading.php tests/fixtures/updater-v2-baseline.php runtime/deckerweb-github-release-updater-v2.php public\nphp tests/class-loading.php runtime/deckerweb-github-release-updater-v2.php tests/fixtures/updater-v2-baseline.php private\n```\n\nExpected: 69 current checks, 22 original public checks and the correct old/new capability decisions. These use synthetic WordPress functions and credentials, with no account access.\n\n## Real host acceptance\n\nUse disposable WordPress installations. Test public and private assets, missing assets/source fallback, single/bulk/automatic calls, distinct replacement token, genuine revocation against valid cache, language switches, parallel hosts and old class loading. Reject wrong identity, wrong repository, downgrade, offered-version mismatch, invalid version, missing/incompatible requirements, oversized/missing main file before installed code is replaced. Check activation state and failed-update lifecycle as well as code preservation.\n\nInspect the actual shipped host ZIP and its requirements. Use multiple supported PHP/database configurations and Multisite. Keep private credentials outside fixtures and redact HTTP monitoring. Native cron and active-plugin fatal-error rollback need separate checks. See [validated scope](VALIDATION.md).\n",
+      "de": "# Tests\n\n[English](TESTING.md)\n\n## Eigenständige Prüfsuite\n\nVom Repositoryverzeichnis aus mit PHP 8.1 oder höher starten:\n\n```sh\nphp tests/regression.php runtime/deckerweb-github-release-updater-v2.php\nphp tests/regression.php tests/fixtures/updater-v2-baseline.php\nphp tests/class-loading.php tests/fixtures/updater-v2-baseline.php runtime/deckerweb-github-release-updater-v2.php public\nphp tests/class-loading.php runtime/deckerweb-github-release-updater-v2.php tests/fixtures/updater-v2-baseline.php private\n```\n\nErwartet: 69 aktuelle Prüfungen, 22 ursprüngliche Public-Prüfungen und die passenden Entscheidungen bei alter/neuer Klassenladung. Die Suite simuliert WordPress und Credentials, ohne Kontozugriff.\n\n## Echte Hostabnahme\n\nIsolierte WordPress-Testinstallationen verwenden. Public-/Private-Assets, Source-Fallback, Einzel/Bulk/Auto, neuen Ersatztoken, echten Widerruf trotz Cache, Sprachwechsel, mehrere Hosts und alte Klassenladung prüfen. Falsche Identität, Repository, Downgrade, abweichende Angebotsversion, ungültige Version, fehlende/unpassende Anforderungen und übergroße/fehlende Hauptdatei vor Austausch abweisen. Aktivierungsstatus und Fehlerlifecycle ebenso prüfen wie den Erhalt des Codestands.\n\nDas tatsächlich ausgelieferte Host-ZIP mit seinen Anforderungen prüfen. Unterstützte PHP-/Datenbankvarianten und Multisite berücksichtigen. Credentials außerhalb der Fixtures halten, HTTP-Monitoring redigieren. Echter Cronlauf und Fatal-Error-Rollback aktiver Plugins sind eigene Tests. Siehe [Abnahmeumfang](VALIDATION-de.md).\n"
+    },
+    "CONVENTIONS": {
+      "en": "# Release and maintenance conventions\n\n[Deutsch](CONVENTIONS-de.md)\n\nUse semantic three-part versions. Compatible features increase the minor version, fixes the patch version, and breaking API/transport changes require an explicit compatibility plan. Publish only a reviewed code/documentation/artwork set. Adoption by a host is a separate, pinned integration change.\n\nMaintain public text centrally in docs/content.json. tools/build-docs.py generates synchronized EN/DE readmes, FAQ, changelogs and wiki pages. Edit the source, rerun the exporter and review generated links and images. Do not hand-edit generated files. New, Improved, Fixed, Misc are the English changelog categories; German uses Neu, Verbessert, Behoben, Sonstiges. Describe user-visible release behavior without internal working notes.\n\nRuntime doc-blocks follow the project’s WordPress documentation conventions: class responsibility, method parameters in order, return values and relevant side effects. Own developer hooks include purpose, parameters and introduction version. Documentation completeness is part of the next code/release check; unnecessary inline restatements are avoided.\n\nKeep host/updater versions, capability guards, package validation, translation catalogs and lifecycle aligned. Check the actual distributable for secrets, stale assets and unnecessary development files. Security changes and minimum-version changes need explicit review. Preserve origin and GPL licensing.\n",
+      "de": "# Release- und Pflegekonventionen\n\n[English](CONVENTIONS.md)\n\nDreiteilige semantische Versionen verwenden. Kompatible Funktionen erhöhen Minor, Korrekturen Patch; inkompatible API-/Transportänderungen benötigen einen ausdrücklichen Kompatibilitätsplan. Code, Dokumente und Grafiken nur nach Check veröffentlichen. Die Übernahme durch einen Host ist eine getrennte, fest versionierte Integrationsänderung.\n\nÖffentliche Texte zentral in docs/content.json pflegen. tools/build-docs.py erzeugt konsistente EN/DE-Readmes, FAQ, Changelogs und Wiki-Seiten. Quelle ändern, Export starten und Links/Grafiken prüfen. Generierte Dateien nicht von Hand bearbeiten. Changelog-Reihenfolge: New, Improved, Fixed, Misc; Deutsch Neu, Verbessert, Behoben, Sonstiges. Nutzerrelevantes Releaseverhalten beschreiben, keine internen Arbeitsnotizen.\n\nRuntime-Doc-Blöcke folgen den WordPress-Dokumentationskonventionen des Projekts: Klassenverantwortung, Methodenparameter in Reihenfolge, Rückgabewerte und relevante Nebenwirkungen. Eigene Entwickler-Hooks erhalten Zweck, Parameter und Einführungsversion. Vollständigkeit gehört zum nächsten Code-/Release-Abgleich; redundante Zeilenkommentare vermeiden.\n\nHost-/Updaterversionen, Fähigkeiten, Paketprüfungen, Übersetzungskataloge und Lifecycle abstimmen. Tatsächliche Auslieferung auf Secrets, veraltete Assets und unnötige Entwicklungsdateien prüfen. Sicherheits- und Mindestversionsänderungen bewusst prüfen. Herkunft und GPL-Lizenz erhalten.\n"
+    },
+    "ASSETS": {
+      "en": "# Artwork and provenance\n\n[Deutsch](ASSETS-de.md)\n\nCopyright © 2026 David Decker — DECKERWEB. The newly drawn updater artwork uses GPL-2.0-or-later, like the component. Editable SVG masters and PNG exports are in assets-github.\n\nThe design follows the approved deckerweb Library 1B family: blue-to-violet gradient, light plugin cards on the left, large white product lettering on the right and restrained corner circles. The updater adds its own update/download mark. Library raster pixels are not embedded or traced; the updater artwork is new vector construction in the same family. No stock image or third-party plugin icon is included.\n\nGitHub banners: 1280 × 640, English and German, SVG/PNG. Icons: SVG plus 128 × 128 and 256 × 256 PNG, without language-specific text. Avenir Next/Arial are system-font references; no font files are bundled. PNGs are local exports. SVG lettering may use a fallback font on another system.\n\nThree alternatives are retained under variants/A, B and C. Variant A is the selected design. Its icon card is centered; both arrow arcs share one circle with equal radii. The design is approved for publication. assets-github/design.json records palette, sizes and slogans. The SVG files remain the editable asset masters; regenerate PNGs after changes and inspect their layout. Source assets do not fetch remote resources.\n",
+      "de": "# Grafiken und Herkunft\n\n[English](ASSETS.md)\n\nCopyright © 2026 David Decker — DECKERWEB. Die neu gezeichneten Updater-Grafiken verwenden wie die Komponente GPL-2.0-or-later. Editierbare SVG-Quellen und PNG-Exporte liegen in assets-github.\n\nDer Entwurf folgt der freigegebenen Library-Familie 1B: Verlauf von Blau nach Violett, helle Pluginkarten links, großer weißer Produktname rechts und dezente Kreise in den Ecken. Der Updater erhält ein eigenes Update-/Downloadzeichen. Library-Rasterpixel werden weder eingebettet noch nachgezeichnet; die Updater-Grafik ist eine neue Vektorkonstruktion in derselben Familie. Keine Stockbilder oder fremden Pluginicons enthalten.\n\nGitHub-Banner: 1280 × 640, Englisch und Deutsch, SVG/PNG. Icons: SVG sowie PNG mit 128 × 128 und 256 × 256, ohne sprachabhängigen Text. Avenir Next/Arial sind Systemschrift-Verweise; Schriftdateien werden nicht mitgeliefert. PNGs sind lokale Exporte. SVG-Schrift kann auf anderen Systemen durch eine Ersatzschrift dargestellt werden.\n\nDrei Alternativen bleiben unter variants/A, B und C erhalten. A ist die gewählte Gestaltung. Die Karte im Icon ist zentriert; beide Pfeilbögen liegen auf einem gemeinsamen Kreis mit gleichen Radien. Die Gestaltung ist zur Veröffentlichung freigegeben. assets-github/design.json enthält Palette, Größen und Slogans. SVG-Dateien bleiben die editierbaren Quellen; nach Änderungen PNGs neu erzeugen und Layout prüfen. Die Grafiken laden keine externen Ressourcen.\n"
+    },
+    "GLOSSARY": {
+      "en": "# Glossary\n\n[Deutsch](GLOSSARY-de.md)\n\n| Term | Meaning |\n| --- | --- |\n| Host | Plugin embedding the updater and owning its integration. |\n| Release asset | ZIP attached to a GitHub release. |\n| Source archive | GitHub-generated repository ZIP for the release ref. |\n| Auth provider | Installation-side source of a repository-bound credential. |\n| Metadata cache | Temporary release information, not downloaded plugin code. |\n| Textdomain | Host-owned translation namespace. |\n| Bulk update | Native WordPress update of several plugins. |\n| Capability guard | Check that the already loaded updater supports a required option. |\n",
+      "de": "# Begriffe\n\n[English](GLOSSARY.md)\n\n| Begriff | Bedeutung |\n| --- | --- |\n| Host | Plugin, das den Updater einbettet und seine Integration verantwortet. |\n| Release-Asset | An einen GitHub-Release angehängtes ZIP. |\n| Source-Archiv | Von GitHub erzeugtes Repository-ZIP für den Release-Ref. |\n| Auth Provider | Installationsseitige Quelle eines repositorygebundenen Credentials. |\n| Metadatencache | Temporäre Releaseinformationen, kein geladener Plugincode. |\n| Textdomain | Vom Host verwalteter Übersetzungsnamensraum. |\n| Sammelupdate | Natives WordPress-Update mehrerer Plugins. |\n| Fähigkeitsprüfung | Prüfung, ob die bereits geladene Klasse die benötigte Option unterstützt. |\n"
+    },
+    "SECURITY": {
+      "en": "# Security reporting\n\n[Deutsch](SECURITY-de.md)\n\nDo not put credentials, temporary signed URLs, customer data or unpatched security details in public issues. Report component problems privately to the maintainer using an existing private contact channel. For host-specific vulnerabilities use the host’s private reporting channel. If no private route is available, request one without exposing the vulnerability publicly.\n\nInclude updater/host versions, WordPress/PHP versions, redacted reproduction and impact. Never include the token itself. Reports are assessed confidentially, affected versions identified and fixes tested before coordinated disclosure. No fixed response deadline is promised.\n\nMaintain the latest stable updater and consider older affected versions as needed. Host integration owns package validation, protected secrets and activation lifecycle. The engine does not isolate secrets from other privileged local PHP code. See [authentication](docs/AUTHENTICATION.md) and [data](docs/DATA.md).\n",
+      "de": "# Sicherheitsmeldungen\n\n[English](SECURITY.md)\n\nCredentials, temporäre signierte URLs, Kundendaten und ungepatchte Sicherheitsdetails gehören nicht in öffentliche Issues. Komponentenprobleme über einen bestehenden privaten Kontaktweg an den Betreuer melden. Hostspezifische Lücken gehören in den privaten Meldeweg des Hosts. Ist kein privater Weg verfügbar, ihn ohne Offenlegung der Lücke anfordern.\n\nUpdater-/Hostversion, WordPress-/PHP-Version, redigierte Reproduktion und Auswirkungen angeben. Niemals den Token selbst mitsenden. Meldungen vertraulich prüfen, betroffene Versionen bestimmen und Korrekturen vor abgestimmter Offenlegung testen. Keine feste Antwortfrist zugesagt.\n\nDen aktuellen stabilen Updater pflegen und ältere betroffene Stände bei Bedarf berücksichtigen. Paketprüfung, geschützte Secrets und Aktivierungslifecycle verantwortet der Host. Gegen anderen privilegierten lokalen PHP-Code isoliert die Engine Secrets nicht. Siehe [Authentifizierung](docs/AUTHENTICATION-de.md) und [Daten](docs/DATA-de.md).\n"
+    }
+  },
+  "faq": [
+    {
+      "id": 1,
+      "topic": {
+        "en": "Getting started",
+        "de": "Einstieg"
+      },
+      "question": {
+        "en": "Do I install a separate updater plugin?",
+        "de": "Installiere ich ein eigenes Updater-Plugin?"
+      },
+      "answer": {
+        "en": "No. The host embeds a pinned version. Use the host plugin’s normal installation and update steps.",
+        "de": "Nein. Der Host bindet einen festen Versionsstand ein. Nutze die üblichen Installations- und Updateschritte des Host-Plugins."
+      },
+      "readme": true
+    },
+    {
+      "id": 2,
+      "topic": {
+        "en": "Getting started",
+        "de": "Einstieg"
+      },
+      "question": {
+        "en": "Do public updates need a GitHub token?",
+        "de": "Brauchen öffentliche Updates einen GitHub-Token?"
+      },
+      "answer": {
+        "en": "No. Public repositories remain unauthenticated. Only configured private repositories need credentials.",
+        "de": "Nein. Öffentliche Repositories bleiben ohne Authentifizierung. Nur entsprechend konfigurierte private Repositories benötigen Zugangsdaten."
+      },
+      "readme": true
+    },
+    {
+      "id": 3,
+      "topic": {
+        "en": "Updates",
+        "de": "Updates"
+      },
+      "question": {
+        "en": "Can I update from a private repository?",
+        "de": "Kann ich Updates aus einem privaten Repository erhalten?"
+      },
+      "answer": {
+        "en": "Yes. The host must enable private mode and provision a repository-bound provider. A fine-grained PAT with Contents read and Metadata read supports the tested release and archive endpoints.",
+        "de": "Ja. Der Host muss den Private-Modus aktivieren und einen repositorygebundenen Provider bereitstellen. Ein Fine-grained PAT mit Contents read und Metadata read unterstützt die geprüften Release- und Archivendpunkte."
+      },
+      "readme": true
+    },
+    {
+      "id": 4,
+      "topic": {
+        "en": "Updates",
+        "de": "Updates"
+      },
+      "question": {
+        "en": "Does the updater enable automatic updates?",
+        "de": "Schaltet der Updater automatische Updates ein?"
+      },
+      "answer": {
+        "en": "No. It supports the normal WordPress update engine. Automatic-update preferences remain with WordPress and the host.",
+        "de": "Nein. Er unterstützt die normale WordPress-Update-Engine. Die Einstellung für automatische Updates bleibt bei WordPress und dem Host."
+      },
+      "readme": true
+    },
+    {
+      "id": 5,
+      "topic": {
+        "en": "Integration",
+        "de": "Einbindung"
+      },
+      "question": {
+        "en": "Can several plugins embed V2?",
+        "de": "Können mehrere Plugins V2 einbinden?"
+      },
+      "answer": {
+        "en": "Yes, with guarded loading. The first loaded class wins; check the private/translation capabilities and coordinate deployed versions.",
+        "de": "Ja, mit geschützter Klassenladung. Die zuerst geladene Klasse gilt; Private-/Übersetzungsfähigkeiten prüfen und die ausgelieferten Versionen abstimmen."
+      },
+      "readme": true
+    },
+    {
+      "id": 6,
+      "topic": {
+        "en": "Localization",
+        "de": "Lokalisierung"
+      },
+      "question": {
+        "en": "Is there an extra textdomain?",
+        "de": "Gibt es eine zusätzliche Textdomain?"
+      },
+      "answer": {
+        "en": "No. Updater strings are merged into the host’s catalogs and translated through a host callback.",
+        "de": "Nein. Updater-Strings werden in die Hostkataloge übernommen und über einen Hostcallback übersetzt."
+      },
+      "readme": true
+    },
+    {
+      "id": 7,
+      "topic": {
+        "en": "Security",
+        "de": "Sicherheit"
+      },
+      "question": {
+        "en": "What happens when a token is revoked?",
+        "de": "Was passiert nach einem Tokenwiderruf?"
+      },
+      "answer": {
+        "en": "Private downloads are rejected even if metadata is still cached. A rejected download does not replace the installed plugin; activation behavior remains the responsibility of the calling host workflow.",
+        "de": "Private Downloads werden auch bei noch gecachten Metadaten abgelehnt. Ein abgelehnter Download ersetzt das installierte Plugin nicht; das Aktivierungsverhalten verantwortet der aufrufende Hostablauf."
+      },
+      "readme": true
+    },
+    {
+      "id": 8,
+      "topic": {
+        "en": "Updates",
+        "de": "Updates"
+      },
+      "question": {
+        "en": "When does metadata refresh?",
+        "de": "Wann werden Metadaten aktualisiert?"
+      },
+      "answer": {
+        "en": "Successful metadata is cached for 30 minutes, failures for 10 minutes. WordPress schedules checks; manual refresh and the host’s cache invalidation can trigger another lookup.",
+        "de": "Erfolgreiche Metadaten werden 30 Minuten, Fehlschläge 10 Minuten gespeichert. WordPress plant die Prüfungen; manuelles Aktualisieren und die Cacheinvalidierung des Hosts können eine neue Abfrage auslösen."
+      },
+      "readme": false
+    },
+    {
+      "id": 9,
+      "topic": {
+        "en": "Updates",
+        "de": "Updates"
+      },
+      "question": {
+        "en": "What if a release has no matching ZIP asset?",
+        "de": "Was passiert ohne passendes ZIP-Asset?"
+      },
+      "answer": {
+        "en": "The engine uses the release’s repository source archive when valid. The host must still validate the archive as an installable plugin.",
+        "de": "Die Engine verwendet das Source-Archiv des Releases, sofern gültig. Der Host muss es weiterhin als installierbares Pluginpaket prüfen."
+      },
+      "readme": false
+    },
+    {
+      "id": 10,
+      "topic": {
+        "en": "Integration",
+        "de": "Einbindung"
+      },
+      "question": {
+        "en": "Who validates the actual package?",
+        "de": "Wer prüft das tatsächliche Paket?"
+      },
+      "answer": {
+        "en": "The engine checks the main file and normalizes directories. Full identity, offered version and platform checks are host responsibilities, including the special Core bulk context.",
+        "de": "Die Engine prüft die Hauptdatei und normalisiert Verzeichnisse. Vollständige Identitäts-, Angebotsversions- und Plattformprüfungen liegen beim Host, auch im besonderen Core-Bulk-Kontext."
+      },
+      "readme": false
+    },
+    {
+      "id": 11,
+      "topic": {
+        "en": "Security",
+        "de": "Sicherheit"
+      },
+      "question": {
+        "en": "Where is the token stored?",
+        "de": "Wo liegt der Token?"
+      },
+      "answer": {
+        "en": "In protected installation configuration, read by the provider at request time. It must not be embedded in plugin files, public repositories, ZIPs, URLs or metadata.",
+        "de": "In geschützter Installationskonfiguration, aus der ihn der Provider bei der Anfrage liest. Er darf nicht in Plugin-Dateien, öffentlichen Repositories, ZIPs, URLs oder Metadaten eingebettet sein."
+      },
+      "readme": false
+    },
+    {
+      "id": 12,
+      "topic": {
+        "en": "Library",
+        "de": "Library"
+      },
+      "question": {
+        "en": "Does the Library replace the host updater?",
+        "de": "Ersetzt die Library den Host-Updater?"
+      },
+      "answer": {
+        "en": "No. Catalog discovery and installed-plugin updates are separate responsibilities. A Library catalog display cache must not dictate the host updater’s refresh interval.",
+        "de": "Nein. Kataloganzeige und Updates installierter Plugins haben getrennte Verantwortlichkeiten. Der Anzeige-Cache des Library-Katalogs darf den Prüfzyklus des Host-Updaters nicht vorgeben."
+      },
+      "readme": false
+    }
+  ],
+  "releases": [
+    {
+      "version": "2.1.0",
+      "date": "2026-10-06",
+      "entries": [
+        {
+          "category": "New",
+          "text": {
+            "en": "Private GitHub updates through a repository-bound authentication provider.",
+            "de": "Private GitHub-Updates über einen repositorygebundenen Authentifizierungsanbieter."
+          }
+        },
+        {
+          "category": "New",
+          "text": {
+            "en": "Updater messages use the host plugin’s existing textdomain, including German Du/Sie catalogs.",
+            "de": "Updater-Meldungen verwenden die bestehende Host-Textdomain, einschließlich deutscher Du-/Sie-Kataloge."
+          }
+        },
+        {
+          "category": "Improved",
+          "text": {
+            "en": "Authenticated release assets and source archives share the native WordPress update workflow.",
+            "de": "Authentifizierte Release-Assets und Source-Archive nutzen denselben nativen WordPress-Updateablauf."
+          }
+        },
+        {
+          "category": "Improved",
+          "text": {
+            "en": "Token rotation supports explicit metadata-cache invalidation.",
+            "de": "Tokenrotation unterstützt die ausdrückliche Invalidierung des Metadatencaches."
+          }
+        },
+        {
+          "category": "Fixed",
+          "text": {
+            "en": "Private downloads and archive normalization handle Core’s per-package bulk context.",
+            "de": "Private Downloads und Archivnormalisierung berücksichtigen den Core-Bulk-Kontext je Paket."
+          }
+        },
+        {
+          "category": "Misc",
+          "text": {
+            "en": "Existing public calls, local artwork and release information remain supported.",
+            "de": "Bestehende Public-Aufrufe, lokale Grafiken und Releaseinformationen bleiben erhalten."
+          }
+        }
+      ]
+    }
+  ]
+}

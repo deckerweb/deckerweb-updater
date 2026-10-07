@@ -1,0 +1,38 @@
+{
+  "family": "deckerweb Library 1B",
+  "review_default": "A",
+  "selected_variant": "A",
+  "icon_card_center": [
+    128,
+    128
+  ],
+  "arrow_circle_center": [
+    150.5,
+    164
+  ],
+  "arrow_circle_radius": 73,
+  "banner": [
+    1280,
+    640
+  ],
+  "icons": [
+    128,
+    256
+  ],
+  "palette": [
+    "#0b4ddd",
+    "#3134df",
+    "#7530ff",
+    "#ffffff",
+    "#d8d6ff"
+  ],
+  "slogans": {
+    "en": "Fresh releases. Familiar workflow.",
+    "de": "Neue Versionen. Vertrauter Ablauf."
+  },
+  "font_references": [
+    "Avenir Next",
+    "Arial"
+  ],
+  "font_files_bundled": false
+}
