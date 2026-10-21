@@ -10,7 +10,7 @@ The deckerweb Updater connects GitHub releases to the normal WordPress plugin up
 
 This repository contains the reusable PHP component, tests, integration examples and documentation. If you find it inside a plugin, you do not need to install an additional updater plugin.
 
-**Version:** 2.2.0 · PHP ≥ 8.1 · WordPress requirements follow the host; tested on 6.7 and 7.1.2.
+**Version:** 2.2.1 · PHP ≥ 8.1 · WordPress requirements follow the host; tested on 6.7 and 7.1.2.
 
 [Documentation](docs/INTEGRATION.md) · [FAQ](docs/FAQ.md) · [Security](SECURITY.md)
 
@@ -75,7 +75,7 @@ Use the host plugin’s documentation for its requirements, activation behavior 
 
 The updater is GPL-2.0-or-later. Explore or reuse it with its origin and license intact. Start with [integration](docs/INTEGRATION.md), [authentication](docs/AUTHENTICATION.md), [tests](docs/TESTING.md) and [release conventions](docs/CONVENTIONS.md).
 
-Before replacing an installed plugin, the host must verify the actual candidate identity, Update URI, offered version and WordPress/PHP requirements. Keep this check active in both single and bulk updates. Check capabilities before using new options beside older loaded V2 copies.
+Before replacing an installed plugin, the host must verify the actual candidate identity, Update URI, offered version and WordPress/PHP requirements. Keep this check active in both single and bulk updates. Use the returned implementation class and check its capabilities; see the 2.2.1 adapter template.
 
 <a id="faq"></a>
 ## FAQ
@@ -98,7 +98,7 @@ No. It supports the normal WordPress update engine. Automatic-update preferences
 
 ### Can several plugins embed V2?
 
-Yes, with guarded loading. The first loaded class wins; check the private/translation capabilities and coordinate deployed versions.
+Yes. From 2.2.1, updated adapters use the class returned by their pinned runtime include. They work even when a different plugin loaded an older V2 class first. Old adapters need migration to this include contract; replacing the PHP file alone is insufficient. See integration for the exact steps.
 
 ### Is there an extra textdomain?
 
@@ -112,6 +112,12 @@ Private downloads are rejected even if metadata is still cached. A rejected down
 
 <a id="changelog"></a>
 ## Changelog
+
+### 2.2.1 · 2026-10-21
+
+- **Fixed:** Updated host integrations use their pinned updater even when another plugin has already loaded an older V2 implementation.
+
+- **Improved:** Release metadata caches are separated by implementation version, repository and public/private mode.
 
 ### 2.2.0 · 2026-10-21
 

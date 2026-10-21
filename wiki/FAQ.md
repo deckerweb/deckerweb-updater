@@ -24,7 +24,7 @@ No. It supports the normal WordPress update engine. Automatic-update preferences
 
 ### Can several plugins embed V2?
 
-Yes, with guarded loading. The first loaded class wins; check the private/translation capabilities and coordinate deployed versions.
+Yes. From 2.2.1, updated adapters use the class returned by their pinned runtime include. They work even when a different plugin loaded an older V2 class first. Old adapters need migration to this include contract; replacing the PHP file alone is insufficient. See integration for the exact steps.
 
 ## Localization
 

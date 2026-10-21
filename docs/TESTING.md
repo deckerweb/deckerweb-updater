@@ -25,3 +25,8 @@ Inspect the actual shipped host ZIP and its requirements. Use multiple supported
 ## 2.2.0 regression suite
 
 Run `php tests/security-220.php runtime/deckerweb-github-release-updater-v2.php` for all 84 checks, including configuration escaping, malformed contexts, public URL rejection, fresh catalog approval, checksum mismatch and provider failure.
+
+
+## 2.2.1 runtime isolation and cleanup
+
+Run `php tests/cache-cleanup-221.php runtime/deckerweb-github-release-updater-v2.php` for 92 regression/security/provider/cache assertions. `tests/mixed-loading-221.php` is the isolated-process harness for mixed legacy and pinned implementations; run each loading order in a separate PHP process.

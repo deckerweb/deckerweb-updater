@@ -16,13 +16,15 @@ return static function ( string $main_file, string $includes_dir, string $reposi
      * @return void Adds update hooks after checking available capabilities.
      */
     add_action( 'init', static function () use ( $main_file, $includes_dir, $repository, $private ): void {
-        if ( ! class_exists( '\Deckerweb\GitHubReleaseUpdater\V2\Updater' ) ) {
-            require_once $includes_dir . '/deckerweb-github-release-updater-v2.php';
-        }
-        if ( ! defined( '\Deckerweb\GitHubReleaseUpdater\V2\Updater::SUPPORTS_HOST_TRANSLATIONS' )
-            || ( $private && ! defined( '\Deckerweb\GitHubReleaseUpdater\V2\Updater::SUPPORTS_PRIVATE_REPOSITORIES' ) ) ) {
-            // Route this host-owned string to the host's actual authorized admin-notice workflow.
-            // __( 'This plugin requires a newer deckerweb Updater integration.', 'example-host' );
+        // Always load this host's pinned copy. The returned class is independent
+        // of an older legacy V2 class selected by another plugin's load order.
+        $updater_class = require $includes_dir . '/deckerweb-github-release-updater-v2.php';
+        if ( ! is_string( $updater_class ) || ! class_exists( $updater_class, false )
+            || ! defined( $updater_class . '::SUPPORTS_HOST_TRANSLATIONS' )
+            || ! constant( $updater_class . '::SUPPORTS_HOST_TRANSLATIONS' )
+            || ( $private && ( ! defined( $updater_class . '::SUPPORTS_PRIVATE_REPOSITORIES' )
+                || ! constant( $updater_class . '::SUPPORTS_PRIVATE_REPOSITORIES' ) ) ) ) {
+            // Keep the host's existing localized configuration notice and safe pause.
             return;
         }
         $options = array( 'translate' => require $includes_dir . '/host-translations.php' );
@@ -30,7 +32,7 @@ return static function ( string $main_file, string $includes_dir, string $reposi
             $options['private'] = true;
             $options['auth'] = new \Deckerweb\GitHubReleaseUpdater\V2\EnvironmentAuthProvider( $repository, 'DECKERWEB_UPDATER_TOKEN' );
         }
-        $updater = new \Deckerweb\GitHubReleaseUpdater\V2\Updater(
+        $updater = new $updater_class(
             $main_file, $repository,
             __( 'Example Plugin', 'example-host' ),
             __( 'Example plugin description.', 'example-host' ),

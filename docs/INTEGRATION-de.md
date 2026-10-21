@@ -1,6 +1,6 @@
 # Integration im Host Plugin
 
-V2.2.0 wird als eingebettete Komponente mit festgelegtem Versionsstand übernommen. Das ZIP ist kein aktivierbares WordPress-Plugin. Hauptdatei, stabilen Plugin-Slug und exakte GitHub-Update-URI im jeweiligen Host prüfen. Nach dem Start der Hostübersetzungen auf init registrieren; Vorlage: examples/host-adapter.php.
+V2.2.1 wird als eingebettete Komponente mit festgelegtem Versionsstand übernommen. Das ZIP ist kein aktivierbares WordPress-Plugin. Hauptdatei, stabilen Plugin-Slug und exakte GitHub-Update-URI im jeweiligen Host prüfen. Nach dem Start der Hostübersetzungen auf init registrieren; Vorlage: examples/host-adapter.php.
 
 ## Eine Textdomain pro Host
 
@@ -14,7 +14,18 @@ Rotation: Ersatz prüfen, clear_cache() aufrufen, WordPress-Updatecache leeren u
 
 ## Klassenladung und Paketprüfung
 
-Die zuerst geladene V2-Kopie bestimmt die gemeinsame Klasse. Vor neuen Optionen SUPPORTS_PRIVATE_REPOSITORIES und SUPPORTS_HOST_TRANSLATIONS prüfen. Alte Klassen nicht neu deklarieren; private Integration bei fehlender Fähigkeit mit verständlicher Hostmeldung abbrechen. Gemeinsame Host-Versionen abstimmen.
+Ab 2.2.1 die festgelegte Runtime des Hosts mit `require` einbinden und den zurückgegebenen Klassennamen verwenden:
+
+```php
+$updater_class = require __DIR__ . '/deckerweb-github-release-updater-v2.php';
+$updater = new $updater_class($main_file, $repository, $name, $description, $artwork, $options);
+```
+
+Die Einbindung nicht mehr mit `class_exists` auf den alten V2-Namen überspringen. Für den Rückgabewert kein `require_once` verwenden: Bei Wiederholung liefert es einen booleschen Wert statt der Implementierungsklasse. Die Datei schützt ihre Deklarationen selbst und liefert bei wiederholtem `require` sowie bei eingebetteten Kopien an unterschiedlichen Pfaden zuverlässig ihre festgelegte Runtime zurück.
+
+Die Implementierung verwendet einen eigenen Namensraum je Release. Diesen nicht im Host festschreiben, sondern den Rückgabewert verwenden. Bereits geladene alte V2-Klassen bleiben erhalten. Ist der alte Name frei, erhält er einen Kompatibilitätsalias für ältere Hostadapter. Ist er bereits belegt, nutzen aktualisierte Adapter trotzdem ihre eigene zurückgegebene Runtime. Keine fremden Hooks oder Instanzen werden ersetzt. Die stabile V2-Authentifizierungsschnittstelle bleibt für bestehende Provider erhalten.
+
+Private-/Übersetzungs-/Katalogfähigkeiten an der zurückgegebenen Klasse prüfen. Sicheren Hosthinweis und vollständige Paketprüfung erhalten. Nur die Datei auszutauschen, ohne den Adapter anzupassen, behebt das Ladereihenfolgeproblem nicht. Unveränderte ältere Adapter behalten bis zur Umstellung ihr bisheriges Auswahlverhalten. Metadatencaches anderer Implementierungsversionen werden nicht übernommen; alte Transients laufen regulär ab.
 
 Die Engine prüft Hauptdatei und Archivverzeichnis. Die vollständige Identitäts-, Update-URI-, Angebotsversions- und WP-/PHP-Prüfung gehört zum Hostadapter und muss vor Austausch erfolgen. Einzel- und Bulkpfad berücksichtigen: Core lässt bei Bulk je Paket type/action weg. Nur matching Pluginbasename und tatsächlicher Plugin_Upgrader mit bulk=true ohne widersprechende Felder legitimieren diesen Sonderfall. Vorlage: examples/host-update-context.php.
 
@@ -32,3 +43,8 @@ Der Paket-Callback erhält (Repository-URL, Plugin-Basisdatei, Paket-URL) und li
 ## Zusammenspiel mit Git Updater
 
 Der Updater erkennt aktive Git-Updater- und historische GitHub-Updater-Identitäten lokal. Berechtigte Administratoren sehen auf Plugin-, Update- und Library-Seiten einen gemeinsamen Hinweis; seine Ausblendungskennung wird mit der Library geteilt. Das Ausblenden gilt je Nutzer und erkanntem Versions-/Aktivierungsstand. Es erfolgen weder Netzwerkabfragen zur Erkennung noch automatische Deaktivierungen. Bei einem fehlgeschlagenen Vorgang deaktiviere Git Updater vorübergehend und versuche es erneut. Aktiviere ihn danach wieder, wenn andere Erweiterungen ihn benötigen. Eine dauerhafte Deaktivierung ist erst sinnvoll, wenn alle betroffenen Plugins und Themes einen anderen zuverlässigen Updateweg besitzen. Der Hinweis garantiert keine Kompatibilität und verändert keine fremden Hooks.
+
+
+## Cache-Bereinigung beim Deinstallieren
+
+Der Metadatencache berücksichtigt die festgelegte Implementierungsversion. In der vorhandenen geschützten Uninstall-Routine die Runtime mit `require` laden und `$updater_class::clear_repository_cache($repository)` aufrufen. Das entfernt öffentliche/private Caches der aktuellen Implementierung sowie die historischen unversionierten Schlüssel genau dieses Repositorys. Es werden keine Update-Hooks registriert und keine Zugangsdaten benötigt. Einträge anderer Implementierungsversionen verfallen nach ihrer ursprünglichen Lebensdauer von 10/30 Minuten. Bestehende getrennte Bereinigung von Einstellungen und WordPress-Update-Transients erhalten. `examples/host-cache-cleanup.php` an den echten Include-Pfad und das Repository anpassen; die Vorlage ersetzt nicht die Uninstall-Routine des Hosts.

@@ -1,5 +1,11 @@
 # Changelog
 
+### 2.2.1 · 2026-10-21
+
+- **Fixed:** Updated host integrations use their pinned updater even when another plugin has already loaded an older V2 implementation.
+
+- **Improved:** Release metadata caches are separated by implementation version, repository and public/private mode.
+
 ### 2.2.0 · 2026-10-21
 
 - **New:** Optional public catalog providers verify fresh release approval and the downloaded package checksum.

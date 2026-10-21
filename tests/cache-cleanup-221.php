@@ -1,0 +1,6 @@
+<?php
+use Deckerweb\GitHubReleaseUpdater\V2\Updater;
+require __DIR__.'/security-220.php';
+$before=$checks;$repo='https://github.com/deckerweb/sample';$old='ddw_ghru_'.substr(md5($repo),0,24);$new='ddw_ghru_'.substr(md5($repo.'|'.Updater::IMPLEMENTATION_VERSION),0,24);$foreign='ddw_ghru_'.substr(md5('https://github.com/deckerweb/foreign'),0,24);
+$cache=[$old=>['marker'=>'old'],$old.'_private'=>['marker'=>'oldprivate'],$new=>['marker'=>'new'],$new.'_private'=>['marker'=>'newprivate'],$foreign=>['keep'=>true],'arbitrary-user-setting'=>['keep'=>true]];
+Updater::clear_repository_cache('https://evil.invalid/deckerweb/sample');check(count($cache)===6,'invalid cleanup target ignored');Updater::clear_repository_cache($repo);check(!isset($cache[$old]),'legacy public cache removed');check(!isset($cache[$old.'_private']),'legacy private cache removed');check(!isset($cache[$new]),'current public cache removed');check(!isset($cache[$new.'_private']),'current private cache removed');check(isset($cache[$foreign]),'foreign repo cache preserved');check(isset($cache['arbitrary-user-setting']),'unrelated settings preserved');Updater::clear_repository_cache($repo);check(count($cache)===2,'cleanup is idempotent');echo 'CACHE ASSERTIONS '.($checks-$before)."\n";

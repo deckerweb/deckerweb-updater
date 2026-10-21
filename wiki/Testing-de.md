@@ -25,3 +25,8 @@ Das tatsächlich ausgelieferte Host-ZIP mit seinen Anforderungen prüfen. Unters
 ## Regressionstests für 2.2.0
 
 Mit `php tests/security-220.php runtime/deckerweb-github-release-updater-v2.php` laufen alle 84 Prüfungen, einschließlich maskierter Konfigurationsfehler, ungültiger Kontexte, abgewiesener öffentlicher URLs, frischer Katalogfreigabe, falscher Prüfsummen und Provider-Ausfälle.
+
+
+## 2.2.1: Runtime-Trennung und Bereinigung
+
+Mit `php tests/cache-cleanup-221.php runtime/deckerweb-github-release-updater-v2.php` laufen 92 Regressions-/Sicherheits-/Provider-/Cacheprüfungen. `tests/mixed-loading-221.php` dient als isoliertes Prozess-Testgerüst für Legacy- und versionsgebundene Implementierungen; jede Ladereihenfolge in einem separaten PHP-Prozess ausführen.

@@ -4,7 +4,18 @@
 
 Copy `runtime/deckerweb-github-release-updater-v2.php` into the host's includes directory. Keep the plugin installed under its stable slug. Set the main plugin's `Update URI` header to exactly `https://github.com/OWNER/REPOSITORY`, without a trailing slash. Register after host translations initialize on `init`.
 
-The namespace stays `Deckerweb\GitHubReleaseUpdater\V2`. Several embedded copies can coexist only through guarded loading: `class_exists` selects the first loaded class. Check `SUPPORTS_PRIVATE_REPOSITORIES` and `SUPPORTS_HOST_TRANSLATIONS` before relying on the new options. An old copy must cause a clear, host-localized configuration notice and stop the new integration; do not redeclare or silently ignore capabilities. Coordinate pinned versions across deployed hosts.
+Starting with 2.2.1, include the host’s pinned runtime with `require` and use its returned class name:
+
+```php
+$updater_class = require __DIR__ . '/deckerweb-github-release-updater-v2.php';
+$updater = new $updater_class($main_file, $repository, $name, $description, $artwork, $options);
+```
+
+Do not guard this include with `class_exists` on the legacy V2 name. Do not use `require_once` for its return value: a repeated `require_once` returns a boolean instead of the implementation class. The runtime guards its own declarations and consistently returns the pinned implementation on repeated `require` calls, including copies embedded at different paths.
+
+The implementation has a release-specific namespace; hosts must use the returned name rather than hardcoding that namespace. Existing `Deckerweb\GitHubReleaseUpdater\V2\Updater` classes are preserved. When that legacy name is free, a compatibility alias allows older host adapters to keep working. When an old implementation already owns it, updated adapters still use their own returned runtime. No foreign hooks or instances are replaced. The stable V2 authentication interface remains compatible with existing providers.
+
+Check private/translation/catalog capabilities on the returned class. Preserve the host’s existing safe configuration notice and complete package checks. Copying the new file without updating the adapter does not solve the first-loaded-class problem. Unmodified old adapters continue their historical selection behavior until migrated. Release caches from other implementation versions are not reused; old transient entries expire normally.
 
 The constructor accepts the absolute main plugin path, repository URL, name, description, optional artwork maps and optional options. See `examples/host-adapter.php`; replace its placeholders and incorporate it into the actual host lifecycle.
 
@@ -48,3 +59,8 @@ The package provider receives (repository URL, plugin basename, package URL) and
 ## Git Updater coexistence
 
 The updater locally detects active Git Updater and historical GitHub Updater identities. Authorized administrators see one shared warning on plugin, update and Library screens; it shares the Library’s dismissal marker. Dismissal is per user and detected version/activation scope. No network detection or automatic deactivation occurs. If an operation fails, temporarily deactivate Git Updater and retry, then reactivate it if other extensions need it. Leave it disabled permanently only when all affected plugins and themes have another reliable update provider. This notice does not guarantee compatibility or change foreign hooks.
+
+
+## Cache cleanup on uninstall
+
+The metadata cache includes the pinned implementation version. In the host’s existing protected uninstall routine, load the runtime with `require` and call `$updater_class::clear_repository_cache($repository)`. This removes public/private caches for the current implementation and the historical unversioned keys of that exact repository. It registers no update hooks and requires no credential. Other implementation versions’ entries expire by their original 10/30-minute TTL. Preserve the host’s separate cleanup of settings and WordPress update transients. Adapt `examples/host-cache-cleanup.php` to the real include path and repository; it is not a replacement for the host’s uninstall routine.

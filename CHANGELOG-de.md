@@ -2,6 +2,12 @@
 
 [English](CHANGELOG.md)
 
+### 2.2.1 · 2026-10-21
+
+- **Behoben:** Aktualisierte Host-Einbindungen verwenden ihren festgelegten Updater auch dann, wenn ein anderes Plugin bereits eine ältere V2-Implementierung geladen hat.
+
+- **Verbessert:** Release-Metadatencaches sind nach Implementierungsversion, Repository und öffentlichem beziehungsweise privatem Modus getrennt.
+
 ### 2.2.0 · 2026-10-21
 
 - **Neu:** Optionale öffentliche Kataloganbieter prüfen die aktuelle Release-Freigabe und die Prüfsumme des heruntergeladenen Pakets.

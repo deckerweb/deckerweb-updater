@@ -1,3 +1,11 @@
+# Local validation of 2.2.1
+
+This 2.2.1 candidate has not been published. The loading matrix passes all 720 permutations of the original public V2, stable 2.1.0, stable 2.2.0, two copies of 2.2.1 and a synthetic next-version fixture on PHP 8.1.29, 8.2.29 and 8.4.18 (2,160 isolated processes). The synthetic fixture is a test only, not a released component. Public/private handling, credential boundaries, fresh catalog approval, checksum failures and withdrawn approvals are covered. The existing 84 security/provider regressions also pass. WordPress 7.1.2 four-host integration passes all 24 single-site orders. Detailed central evidence is retained separately; no production site or public release is changed.
+
+Final validation: 92 security/cache checks per PHP version (8.1.29, 8.2.29, 8.4.18), 18 historical development-version cases, 65 network/site activation combinations and twelve native WordPress update flows passed. Single, bulk and automatic updates replaced real files; missing credentials, withdrawn catalog approval and invalid checksums were rejected. GitHub responses were intercepted locally; the automatic WordPress loopback check used a real local HTTP server. This does not replace a live private GitHub repository test. Plugin Check reports 347 existing host/Library findings in the fixture, none in the updater file.
+
+The existing historical acceptance below belongs to earlier releases and is not presented as repeated private GitHub end-to-end acceptance of 2.2.1.
+
 # Validation and release limits
 
 Version 2.1.0 was validated in isolated disposable environments. No existing host production installation was changed. The published self-contained suite has 69 checks; the original V2 fixture passes its 22 public regression checks. Tests pass on PHP 8.4.5 and 8.1.29; old-first and new-first class loading were checked in separate processes.
@@ -16,9 +24,14 @@ Additional live acceptance performed during development:
 
 The full host candidate checks remain host responsibilities. The private fixture and the host package-validation fixtures were separate; this is not an end-to-end acceptance of any production host plugin. Direct automatic-updater calls do not establish real cron scheduling or active-plugin fatal-error rollback. Concrete host integrations, combined MySQL-Multisite and complete lifecycle coverage still require their own acceptance. MySQL 8.4 was not accepted because the locally bundled runtime failed initialization; 8.0 tests passed.
 
-Private repository fixtures, credentials, operational wrappers, databases and internal handoffs are not distributed. Published mock tests can run offline. Version 2.2.0 is the current official release.
+Private repository fixtures, credentials, operational wrappers, databases and internal handoffs are not distributed. Published mock tests can run offline. The validation above covers the earlier releases; the 2.2.1 checks below cover the pinned implementation.
 
 
 ## 2.2.0 validation
 
 All 84 regression/security/provider checks pass on PHP 8.1.29 and 8.4.5. Private asset single and source-archive bulk updates were repeated against the test repository on WordPress 7.1.2. Notice checks cover WordPress 6.7 and 7.1.2, Single Site and Multisite, and PHP 8.1.29. The actual Git Updater 14.4.2 source-selection callback rejects a custom installation nonce but preserves a foreign source with a valid native update context; this is not complete end-to-end Git Updater compatibility acceptance. Plugin Check 2.1.0 with its CLI runtime bootstrap reports no findings in the 2.2.0 updater file embedded in the tested host. Findings elsewhere in that host remain separately assigned. These checks do not replace host-specific package validation or establish a new global WordPress minimum.
+
+
+## 2.2.1 validation
+
+Mixed-version loading was checked in 2,160 isolated processes across PHP 8.1.29, 8.2.29 and 8.4.18, including repeated copies and a synthetic later-version fixture. All 116,640 loading assertions and 92 regression/security/provider/cache assertions per PHP version passed. Additional isolated WordPress 7.1.2 tests cover 24 loading orders, 65 network/site activation combinations and twelve native single, bulk, automatic and refused-update cases with actual file replacement. HTTP package responses were controlled locally; automatic-update loopback used a real local HTTP server. These 2.2.1 checks do not constitute a live private-GitHub test or acceptance of every production host. Plugin Check reports no findings in the tested updater file; unrelated host and Library findings remain separate. PHP 8.1 and host-dependent WordPress requirements are retained.

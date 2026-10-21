@@ -26,7 +26,7 @@ Nein. Er unterstützt die normale WordPress-Update-Engine. Die Einstellung für 
 
 ### Können mehrere Plugins V2 einbinden?
 
-Ja, mit geschützter Klassenladung. Die zuerst geladene Klasse gilt; Private-/Übersetzungsfähigkeiten prüfen und die ausgelieferten Versionen abstimmen.
+Ja. Ab 2.2.1 verwenden aktualisierte Adapter die Klasse, die ihre eingebettete Runtime zurückgibt. Das funktioniert auch dann, wenn ein anderes Plugin zuvor eine ältere V2-Klasse geladen hat. Alte Adapter müssen auf diese Einbindung umgestellt werden; nur die PHP-Datei zu ersetzen genügt nicht. Die genauen Schritte stehen in der Einbindungsanleitung.
 
 ## Lokalisierung
 
