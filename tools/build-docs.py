@@ -15,7 +15,7 @@ def faq(lang,short=False):
   out.append('### '+f['question'][lang]+'\n\n'+f['answer'][lang])
  return '\n\n'.join(out)
 def changes(lang):
- out=[]
+ out=[c['release_history_note'][lang]]
  for r in c['releases']:
   out.append('### '+r['version']+' · '+r['date'])
   for e in r['entries']:out.append('- **'+cats[lang][e['category']]+':** '+e['text'][lang])

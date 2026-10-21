@@ -113,6 +113,8 @@ Private downloads are rejected even if metadata is still cached. A rejected down
 <a id="changelog"></a>
 ## Changelog
 
+The updater was previously used as V1 and V2 within deckerweb plugins. Its standalone release history in this repository begins with version 2.1.0.
+
 ### 2.2.1 · 2026-10-21
 
 - **Fixed:** Updated host integrations use their pinned updater even when another plugin has already loaded an older V2 implementation.

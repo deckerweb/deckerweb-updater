@@ -113,6 +113,8 @@ Private Downloads werden auch bei noch gecachten Metadaten abgelehnt. Ein abgele
 <a id="changelog"></a>
 ## Changelog
 
+Der Updater wurde zuvor bereits als V1 und V2 in deckerweb-Plugins eingesetzt. Die eigenständige Release-Historie in diesem Repository beginnt mit Version 2.1.0.
+
 ### 2.2.1 · 2026-10-21
 
 - **Behoben:** Aktualisierte Host-Einbindungen verwenden ihren festgelegten Updater auch dann, wenn ein anderes Plugin bereits eine ältere V2-Implementierung geladen hat.
