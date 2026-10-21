@@ -10,7 +10,7 @@ Der deckerweb Updater verbindet GitHub-Releases mit dem gewohnten WordPress-Upda
 
 Dieses Repository enthält die wiederverwendbare PHP-Komponente, Tests, Einbindungsbeispiele und Dokumentation. Wenn du den Updater in einem Plugin findest, musst du kein zusätzliches Updater-Plugin installieren.
 
-**Version:** 2.1.0 · PHP ≥ 8.1 · WordPress-Anforderungen richten sich nach dem Host; geprüft auf 6.7 und 7.1.2.
+**Version:** 2.2.0 · PHP ≥ 8.1 · WordPress-Anforderungen richten sich nach dem Host; geprüft auf 6.7 und 7.1.2.
 
 [Dokumentation](docs/INTEGRATION-de.md) · [FAQ](docs/FAQ-de.md) · [Sicherheit](SECURITY-de.md)
 
@@ -112,6 +112,16 @@ Private Downloads werden auch bei noch gecachten Metadaten abgelehnt. Ein abgele
 
 <a id="changelog"></a>
 ## Changelog
+
+### 2.2.0 · 2026-10-21
+
+- **Neu:** Optionale öffentliche Kataloganbieter prüfen die aktuelle Release-Freigabe und die Prüfsumme des heruntergeladenen Pakets.
+
+- **Verbessert:** Ein gemeinsamer, ausblendbarer Admin-Hinweis hilft bei möglichen Konflikten mit aktivem Git Updater.
+
+- **Behoben:** Konfigurationsfehler werden maskiert ausgegeben, ungültige Updatekontexte ignoriert und öffentliche Paket-URLs strenger geprüft.
+
+- **Sonstiges:** Ergänzte interne API-Dokumentation und Übersetzungsvorlagen für Host-Plugins.
 
 ### 2.1.0 · 2026-10-06
 

@@ -37,3 +37,14 @@ Preserve existing error codes, checks, locale behavior and activation/uninstall 
 ## Release adoption
 
 Use a pinned version or verified release asset. The repository ZIP is a source distribution, not an installable WordPress plugin. Updater adoption is a deliberate host release change; publishing this repository does not update existing embedded copies automatically. Public hosts require no token.
+
+
+## Public catalog providers
+
+Version 2.2.0 exposes SUPPORTS_CATALOG_PROVIDER. Set both release_provider and package_provider callables in the options only for public repositories. The release provider receives (repository URL, plugin basename, fresh boolean). Return false only when the catalog is explicitly disabled and direct GitHub mode should apply; return null on unavailable or denied approval. An approved array contains version (three numeric components), package (a release asset URL in the same repository), sha256 (64 lowercase hexadecimal characters), and optional notes, published, requires_wp and requires_php strings. Denial and provider exceptions never silently switch to a direct download.
+
+The package provider receives (repository URL, plugin basename, package URL) and returns a temporary ZIP path or WP_Error. It owns safe downloading and cleanup of failed temporary files. Before the operation the updater asks for fresh approval, checks the offered URL has not changed, and independently verifies the returned file SHA-256. Provider errors become fixed messages without credentials or exception details. Preserve the host’s package identity and requirement checks. Private mode cannot use catalog callbacks.
+
+## Git Updater coexistence
+
+The updater locally detects active Git Updater and historical GitHub Updater identities. Authorized administrators see one shared warning on plugin, update and Library screens; it shares the Library’s dismissal marker. Dismissal is per user and detected version/activation scope. No network detection or automatic deactivation occurs. If an operation fails, temporarily deactivate Git Updater and retry, then reactivate it if other extensions need it. Leave it disabled permanently only when all affected plugins and themes have another reliable update provider. This notice does not guarantee compatibility or change foreign hooks.

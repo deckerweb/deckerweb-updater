@@ -15,3 +15,6 @@ Geschützte Installationskonfiguration verwaltet das Secret. Privilegierter PHP-
 ## Aktivierung und Deinstallation
 
 Aktivierung, Deaktivierung, Reaktivierung und Uninstall verantwortet der Host. Die Komponente fügt weder Einstellungsseite noch eigene Datenbanktabellen hinzu. clear_cache() bereinigt Repository-Metadaten; Secrets werden in der Installationskonfiguration entfernt. Gemeinsam genutzte Caches nicht ohne abgestimmte Eigentümerschaft löschen. Deinstallation widerruft keinen GitHub-Token; das ist ein eigener Vorgang.
+
+
+Der optionale Konflikthinweis speichert nur einen Fingerabdruck des erkannten Konfliktstands in den Metadaten des aktuellen Nutzers (deckerweb_git_updater_notice_v1), gemeinsam mit der Library. Keine Zugangsdaten oder entfernte Abfrage sind beteiligt.

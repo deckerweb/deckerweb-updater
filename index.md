@@ -14,7 +14,7 @@ The deckerweb Updater connects GitHub releases to the normal WordPress plugin up
 
 This repository contains the reusable PHP component, tests, integration examples and documentation. If you find it inside a plugin, you do not need to install an additional updater plugin.
 
-[Repository](https://github.com/deckerweb/deckerweb-updater) · [Documentation](https://github.com/deckerweb/deckerweb-updater/wiki/Home) · [Integration](https://github.com/deckerweb/deckerweb-updater/wiki/Integration) · [Release 2.1.0](https://github.com/deckerweb/deckerweb-updater/releases/tag/v2.1.0)
+[Repository](https://github.com/deckerweb/deckerweb-updater) · [Documentation](https://github.com/deckerweb/deckerweb-updater/wiki/Home) · [Integration](https://github.com/deckerweb/deckerweb-updater/wiki/Integration) · [Release 2.2.0](https://github.com/deckerweb/deckerweb-updater/releases/tag/v2.2.0)
 
 ## Deutsch
 
@@ -26,7 +26,7 @@ Der deckerweb Updater verbindet GitHub-Releases mit dem gewohnten WordPress-Upda
 
 Dieses Repository enthält die wiederverwendbare PHP-Komponente, Tests, Einbindungsbeispiele und Dokumentation. Wenn du den Updater in einem Plugin findest, musst du kein zusätzliches Updater-Plugin installieren.
 
-[Repository](https://github.com/deckerweb/deckerweb-updater) · [Dokumentation](https://github.com/deckerweb/deckerweb-updater/wiki/Home-de) · [Einbindung](https://github.com/deckerweb/deckerweb-updater/wiki/Integration-de) · [Release 2.1.0](https://github.com/deckerweb/deckerweb-updater/releases/tag/v2.1.0)
+[Repository](https://github.com/deckerweb/deckerweb-updater) · [Dokumentation](https://github.com/deckerweb/deckerweb-updater/wiki/Home-de) · [Einbindung](https://github.com/deckerweb/deckerweb-updater/wiki/Integration-de) · [Release 2.2.0](https://github.com/deckerweb/deckerweb-updater/releases/tag/v2.2.0)
 
 ## Support the project · Das Projekt unterstützen
 

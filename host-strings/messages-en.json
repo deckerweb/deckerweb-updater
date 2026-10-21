@@ -9,5 +9,12 @@
   "Could not access the update filesystem.",
   "GitHub release does not contain the plugin main file.",
   "Could not prepare the GitHub release package.",
-  "See the release on GitHub."
+  "See the release on GitHub.",
+  "Git Updater is active. If a deckerweb installation or update fails, temporarily deactivate Git Updater and retry. Reactivate it afterwards if other plugins or themes need it. Only leave it disabled when those extensions have another reliable update provider.",
+  "Manage installed plugins",
+  "Dismiss this notice",
+  "Permission denied.",
+  "Public catalog callbacks require both providers and cannot be used in private mode.",
+  "The approved release could not be verified.",
+  "The approved release changed. Refresh updates first."
 ]

@@ -20,3 +20,8 @@ Erwartet: 69 aktuelle Prüfungen, 22 ursprüngliche Public-Prüfungen und die pa
 Isolierte WordPress-Testinstallationen verwenden. Public-/Private-Assets, Source-Fallback, Einzel/Bulk/Auto, neuen Ersatztoken, echten Widerruf trotz Cache, Sprachwechsel, mehrere Hosts und alte Klassenladung prüfen. Falsche Identität, Repository, Downgrade, abweichende Angebotsversion, ungültige Version, fehlende/unpassende Anforderungen und übergroße/fehlende Hauptdatei vor Austausch abweisen. Aktivierungsstatus und Fehlerlifecycle ebenso prüfen wie den Erhalt des Codestands.
 
 Das tatsächlich ausgelieferte Host-ZIP mit seinen Anforderungen prüfen. Unterstützte PHP-/Datenbankvarianten und Multisite berücksichtigen. Credentials außerhalb der Fixtures halten, HTTP-Monitoring redigieren. Echter Cronlauf und Fatal-Error-Rollback aktiver Plugins sind eigene Tests. Siehe [Abnahmeumfang](VALIDATION-de.md).
+
+
+## Regressionstests für 2.2.0
+
+Mit `php tests/security-220.php runtime/deckerweb-github-release-updater-v2.php` laufen alle 84 Prüfungen, einschließlich maskierter Konfigurationsfehler, ungültiger Kontexte, abgewiesener öffentlicher URLs, frischer Katalogfreigabe, falscher Prüfsummen und Provider-Ausfälle.

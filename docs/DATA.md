@@ -15,3 +15,6 @@ Protected installation configuration owns the secret. Other privileged PHP code 
 ## Activation and uninstall
 
 The host owns activation, deactivation, reactivation and uninstall. This embedded component adds no settings screen or dedicated database tables. Use clear_cache() for its repository metadata; secret removal happens in installation configuration. Do not delete shared cache entries while another host intentionally uses them without coordinating ownership. Uninstalling a host does not revoke a GitHub token; revocation is a separate operation.
+
+
+The optional conflict notice stores only a detected conflict fingerprint in current-user metadata (deckerweb_git_updater_notice_v1), shared with the Library. No credentials or remote lookup are involved.

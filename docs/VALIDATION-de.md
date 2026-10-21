@@ -13,3 +13,8 @@ Private Multisite-Assetupdates bestehen unter WordPress 7.1.2/PHP 8.4.5, Bulk zu
 Vollständige Paketprüfungen bleiben Hostverantwortung. Die privaten Downloadfixtures und Hostpaketfixtures waren getrennt; dies ist keine vollständige Abnahme eines produktiven Host-Plugins. Direkte Auto-Updater-Aufrufe belegen keinen echten Cronlauf oder aktiven Fatal-Error-Rollback. Konkrete Hostintegrationen, kombinierte MySQL-Multisite und vollständiger Lifecycle benötigen eigene Tests. MySQL 8.4 wurde wegen eines Initialisierungsfehlers der lokalen Laufzeit nicht abgenommen; 8.0 besteht.
 
 Zugangsdaten, private Betriebswrapper und Testdatenbanken werden nicht veröffentlicht. Die mitgelieferten Simulationstests laufen ohne Konto oder Netzwerk.
+
+
+## Abnahme von 2.2.0
+
+Alle 84 Regressions-/Sicherheits-/Provider-Prüfungen bestehen mit PHP 8.1.29 und 8.4.5. Private Asset-Einzelupdates und Source-Archiv-Sammelupdates wurden mit dem Testrepository unter WordPress 7.1.2 wiederholt. Hinweisprüfungen decken WordPress 6.7 und 7.1.2, Einzelwebsite und Multisite sowie PHP 8.1.29 ab. Der tatsächliche Quellverzeichnis-Callback von Git Updater 14.4.2 weist einen eigenen Installationsnonce ab, erhält eine fremde Quelle mit gültigem nativem Updatekontext aber unverändert; dies ist keine vollständige Ende-zu-Ende-Abnahme der Git-Updater-Kompatibilität. Plugin Check 2.1.0 mit CLI-Laufzeit-Bootstrap meldet im eingebetteten Updater 2.2.0 des geprüften Hosts keine Befunde. Meldungen in anderen Hostbestandteilen sind separat zugeordnet. Diese Prüfungen ersetzen weder konkrete Host-Paketprüfungen noch begründen sie eine neue allgemeine WordPress-Untergrenze.

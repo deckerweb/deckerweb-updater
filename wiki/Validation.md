@@ -16,4 +16,9 @@ Additional live acceptance performed during development:
 
 The full host candidate checks remain host responsibilities. The private fixture and the host package-validation fixtures were separate; this is not an end-to-end acceptance of any production host plugin. Direct automatic-updater calls do not establish real cron scheduling or active-plugin fatal-error rollback. Concrete host integrations, combined MySQL-Multisite and complete lifecycle coverage still require their own acceptance. MySQL 8.4 was not accepted because the locally bundled runtime failed initialization; 8.0 tests passed.
 
-Private repository fixtures, credentials, operational wrappers, databases and internal handoffs are not distributed. Published mock tests can run offline. Version 2.1.0 is the official release.
+Private repository fixtures, credentials, operational wrappers, databases and internal handoffs are not distributed. Published mock tests can run offline. Version 2.2.0 is the current official release.
+
+
+## 2.2.0 validation
+
+All 84 regression/security/provider checks pass on PHP 8.1.29 and 8.4.5. Private asset single and source-archive bulk updates were repeated against the test repository on WordPress 7.1.2. Notice checks cover WordPress 6.7 and 7.1.2, Single Site and Multisite, and PHP 8.1.29. The actual Git Updater 14.4.2 source-selection callback rejects a custom installation nonce but preserves a foreign source with a valid native update context; this is not complete end-to-end Git Updater compatibility acceptance. Plugin Check 2.1.0 with its CLI runtime bootstrap reports no findings in the 2.2.0 updater file embedded in the tested host. Findings elsewhere in that host remain separately assigned. These checks do not replace host-specific package validation or establish a new global WordPress minimum.

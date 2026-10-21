@@ -10,7 +10,7 @@ The deckerweb Updater connects GitHub releases to the normal WordPress plugin up
 
 This repository contains the reusable PHP component, tests, integration examples and documentation. If you find it inside a plugin, you do not need to install an additional updater plugin.
 
-**Version:** 2.1.0 · PHP ≥ 8.1 · WordPress requirements follow the host; tested on 6.7 and 7.1.2.
+**Version:** 2.2.0 · PHP ≥ 8.1 · WordPress requirements follow the host; tested on 6.7 and 7.1.2.
 
 [Documentation](docs/INTEGRATION.md) · [FAQ](docs/FAQ.md) · [Security](SECURITY.md)
 
@@ -112,6 +112,16 @@ Private downloads are rejected even if metadata is still cached. A rejected down
 
 <a id="changelog"></a>
 ## Changelog
+
+### 2.2.0 · 2026-10-21
+
+- **New:** Optional public catalog providers verify fresh release approval and the downloaded package checksum.
+
+- **Improved:** A shared, dismissible administrator notice helps identify possible conflicts with active Git Updater installations.
+
+- **Fixed:** Configuration error messages are escaped, malformed update contexts are ignored, and public package URLs are validated more strictly.
+
+- **Misc:** Expanded inline API documentation and host translation templates.
 
 ### 2.1.0 · 2026-10-06
 

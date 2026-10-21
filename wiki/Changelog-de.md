@@ -1,5 +1,15 @@
 # Changelog
 
+### 2.2.0 · 2026-10-21
+
+- **Neu:** Optionale öffentliche Kataloganbieter prüfen die aktuelle Release-Freigabe und die Prüfsumme des heruntergeladenen Pakets.
+
+- **Verbessert:** Ein gemeinsamer, ausblendbarer Admin-Hinweis hilft bei möglichen Konflikten mit aktivem Git Updater.
+
+- **Behoben:** Konfigurationsfehler werden maskiert ausgegeben, ungültige Updatekontexte ignoriert und öffentliche Paket-URLs strenger geprüft.
+
+- **Sonstiges:** Ergänzte interne API-Dokumentation und Übersetzungsvorlagen für Host-Plugins.
+
 ### 2.1.0 · 2026-10-06
 
 - **Neu:** Private GitHub-Updates über einen repositorygebundenen Authentifizierungsanbieter.

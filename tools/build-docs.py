@@ -74,3 +74,19 @@ for lang in ['en','de']:
  page+=f"## {'English' if lang=='en' else 'Deutsch'}\n\n![{c['project']}](assets-github/banner-{lang}.png)\n\n**{c['slogan'][lang]}**\n\n{c['readme']['about'][lang]}\n\n{c['pages']['links'][lang]}\n\n"
 page+='## '+c['pages']['support']['en']+' · '+c['pages']['support']['de']+'\n\n[Ko-fi](https://ko-fi.com/deckerweb) · [Buy Me a Coffee](https://buymeacoffee.com/daveshine) · [PayPal](https://paypal.me/deckerweb)\n'
 write('index.md',page)
+
+# Normalize every wiki page, including FAQ, changelogs and language switches.
+for page_path in wiki.glob('*.md'):
+ def wiki_target(m):
+  target=m.group(2)
+  path,sep,fragment=target.partition('#')
+  if path.startswith(('http:', 'https:')) or not path.endswith('.md'): return m.group(0)
+  stem=path.removeprefix('../').removeprefix('docs/').removesuffix('.md')
+  names={'README':'Home','README-de':'Home-de','CHANGELOG':'Changelog','CHANGELOG-de':'Changelog-de'}
+  destination=names.get(stem,stem.title().replace('-De','-de'))
+  if not (wiki/(destination+'.md')).is_file(): return m.group(0)
+  return '['+m.group(1)+']('+destination+(sep+fragment if sep else '')+')'
+ page_path.write_text(re.sub(r'(?<!!)\[([^\]]+)\]\(([^)]+)\)',wiki_target,page_path.read_text()))
+
+# Keep bilingual release copy in the same authoritative content source.
+write('RELEASE-NOTES.md', '## English\n\n'+c['release_notes']['en']+'\n\n## Deutsch\n\n'+c['release_notes']['de'])

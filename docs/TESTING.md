@@ -20,3 +20,8 @@ Expected: 69 current checks, 22 original public checks and the correct old/new c
 Use disposable WordPress installations. Test public and private assets, missing assets/source fallback, single/bulk/automatic calls, distinct replacement token, genuine revocation against valid cache, language switches, parallel hosts and old class loading. Reject wrong identity, wrong repository, downgrade, offered-version mismatch, invalid version, missing/incompatible requirements, oversized/missing main file before installed code is replaced. Check activation state and failed-update lifecycle as well as code preservation.
 
 Inspect the actual shipped host ZIP and its requirements. Use multiple supported PHP/database configurations and Multisite. Keep private credentials outside fixtures and redact HTTP monitoring. Native cron and active-plugin fatal-error rollback need separate checks. See [validated scope](VALIDATION.md).
+
+
+## 2.2.0 regression suite
+
+Run `php tests/security-220.php runtime/deckerweb-github-release-updater-v2.php` for all 84 checks, including configuration escaping, malformed contexts, public URL rejection, fresh catalog approval, checksum mismatch and provider failure.

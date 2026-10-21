@@ -2,7 +2,19 @@
 /** Adapt this template inside the host; it is not a standalone plugin. */
 defined( 'ABSPATH' ) || exit;
 // The main plugin passes its own absolute __FILE__; do not use this adapter's __FILE__.
+/**
+ * Schedule one host integration after translation initialization.
+ * @param string $main_file Absolute host main file.
+ * @param string $includes_dir Directory containing the updater and host translator.
+ * @param string $repository Exact GitHub repository URL.
+ * @param bool $private Whether repository-bound authentication is required.
+ * @return void Registers an init callback; does not update or activate a plugin.
+ */
 return static function ( string $main_file, string $includes_dir, string $repository, bool $private = false ): void {
+    /**
+     * Register the shared engine and this host's update identity.
+     * @return void Adds update hooks after checking available capabilities.
+     */
     add_action( 'init', static function () use ( $main_file, $includes_dir, $repository, $private ): void {
         if ( ! class_exists( '\Deckerweb\GitHubReleaseUpdater\V2\Updater' ) ) {
             require_once $includes_dir . '/deckerweb-github-release-updater-v2.php';

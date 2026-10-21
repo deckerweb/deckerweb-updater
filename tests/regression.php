@@ -4,6 +4,8 @@ $cache=[]; $requests=[]; $queue=[]; $filters=[];
 function plugin_basename($f){return 'sample/sample.php';}
 function wp_parse_url($u){return parse_url($u);}
 function esc_url_raw($u,$p=[]){return $u;}
+function add_action(...$args){}
+function has_action($hook){return false;}
 function add_filter(...$args){global $filters;$filters[]=$args;}
 function get_site_transient($k){global $cache;return $cache[$k]??false;}
 function set_site_transient($k,$v,$ttl){global $cache;$cache[$k]=$v;}

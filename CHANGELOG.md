@@ -2,6 +2,16 @@
 
 [Deutsch](CHANGELOG-de.md)
 
+### 2.2.0 · 2026-10-21
+
+- **New:** Optional public catalog providers verify fresh release approval and the downloaded package checksum.
+
+- **Improved:** A shared, dismissible administrator notice helps identify possible conflicts with active Git Updater installations.
+
+- **Fixed:** Configuration error messages are escaped, malformed update contexts are ignored, and public package URLs are validated more strictly.
+
+- **Misc:** Expanded inline API documentation and host translation templates.
+
 ### 2.1.0 · 2026-10-06
 
 - **New:** Private GitHub updates through a repository-bound authentication provider.
